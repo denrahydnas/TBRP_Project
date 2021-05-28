@@ -15,6 +15,7 @@ The user can mark books as Read and as In Progress and filter them out from the 
 
 -- reach goals: 
 drag and drop books in "pile" to re-order them
+
 rate and/or review books marked as read
 
 
