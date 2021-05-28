@@ -4,13 +4,22 @@ Code Louisville Javascript Spring/Summer 2021
 For my Project, I am going to make a collection of books in a To Be Read pile. 
 
 The user will be able to search for a book and see if it is in the pile already or if they would like to add it.
+
 If it is not in the pile, the user can retrieve info about the book from an API (Google Books or something similar)
+
 The user can add the book to the TBR pile, which will appear graphically. 
+
 The user can track how long it has been since the book was added to the TBR pile
+
 The user can mark books as Read and as In Progress and filter them out from the TBR pile.
+
+-- reach goals: 
+drag and drop books in "pile" to re-order them
+rate and/or review books marked as read
 
 
 Project requirements:
+
 Your application must have a responsive design through the use of media queries, Bootstrap, CSS Grid, Flexbox, and/or other similar approaches - we need to ensure that you can integrate your new JavaScript skills with your HTML/CSS skills you previously learned
 We will test your site on at least two different screen sizes (mobile and desktop) and must see that you’ve incorporate some element of responsive design to it
 Project is uploaded to your GitHub repository and shows at minimum 5 separate commits
