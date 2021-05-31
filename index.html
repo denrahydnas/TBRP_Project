@@ -7,12 +7,55 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <title>TBR Pile</title>
   </head>
   <body>
-    <h1>TBR</h1>
+    <div class="wrapper">
+      <header>
+        <h1>TBR</h1>
+        <p>My To-Be-Read Pile</p>
+        <form id="registrar">
+          <input type="text" name="name" placeholder="Invite Someone">
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">I own this book</label>
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck2">
+            <label class="form-check-label" for="exampleCheck1">I should buy this book</label>
+          </div>
+          <button type="submit" name="submit" value="submit">Add Book</button>
+        </form>
+      </header>
+      
+      <div class="main">	
+        <h2>Books</h2>
+        <ul id="invitedList"></ul>	
+      </div>
+    </div>
 
+  <div class ="wrapper bookstack">
+    <div class ="bookone wrapper">
+      <h1>Crying at H Mart - Michelle Zauner</h1>
+    </div>
+    <div class ="booktwo wrapper">
+      <h1>Mad & Bad - Bea Koch</h1>
+    </div>
+    <div class ="bookthree wrapper">
+      <h1>The Vegetarian - Han Kang</h1>
+    </div>
+    <div class ="bookfour">
+      <h1>Difficult Women</h1>
+      <h2>Roxane Gay</h2>
+    </div>
+    <div class ="bookfive">
+      <h1>Bombshell</h1>
+      <h2>Sarah MacLean</h2>
+    </div>
+  </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
