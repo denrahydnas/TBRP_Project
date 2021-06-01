@@ -8,9 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Handlee&family=Lobster&family=Mate+SC&family=Nothing+You+Could+Do&family=Poiret+One&family=Raleway:wght@200&family=Stint+Ultra+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Handlee&family=Lobster&family=Mate+SC&family=Nothing+You+Could+Do&family=Poiret+One&family=Raleway:wght@200&family=Stint+Ultra+Condensed&display=swap" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <title>TBR Pile</title>
   </head>
@@ -18,42 +16,41 @@
     <div class="wrapper">
       <header>
         <h1>TBR</h1>
-        <p>My To-Be-Read Pile</p>
-        <form id="registrar">
-          <input type="text" name="name" placeholder="Add A Book">
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">I own this book</label>
+        <p>Books To-Be-Read</p>
+          <div id="book_search" class ="d-flex flex-wrap align-items-center">
+            <div class="p-2">
+              <label for="BookTitle">Title</label>
+              <input type="text" id="BookTitle">
+            </div>
+            <div class="p-2">
+              <label for="BookAuthor">Author</label>
+              <input type="text" id="BookAuthor">
+            </div>
+            <div class="ml-md-auto p-2">
+              <button type="submit" class=" btn btn-primary p-2 ">Find Book</button>
+            </div>
           </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck2">
-            <label class="form-check-label" for="exampleCheck1">I should buy this book</label>
-          </div>
-          <button type="submit" name="submit" value="submit">Add Book</button>
-        </form>
       </header>
-      
       <div class="main">	
-        <h2>Books</h2>
-        <ul id="invitedList"></ul>	
+ <!--// expands with book info/edit fields as needed // -->
       </div>
     </div>
 
   <div class ="wrapper bookstack">
     <div class ="book b_one">
-      <h1>Crying at H Mart - Michelle Zauner</h1>
+      <h2>Crying at H Mart - Michelle Zauner</h2>
     </div>
     <div class ="book b_two">
-      <h1>Mad & Bad - Bea Koch</h1>
+      <h2>Mad & Bad - Bea Koch</h2>
     </div>
     <div class ="book b_three">
-      <h1>The Vegetarian - Han Kang</h1>
+      <h2>The Vegetarian - Han Kang</h2>
     </div>
     <div class ="book b_four">
-      <h1>Difficult Women - Roxane Gay</h1>
+      <h2>Difficult Women - Roxane Gay</h2>
     </div>
     <div class ="book b_five">
-      <h1>Bombshell - Sarah MacLean</h1>
+      <h2>Bombshell - Sarah MacLean</h2>
     </div>
   </div>
     <!-- Optional JavaScript -->
