@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/vscode,pycharm,vim,eclipse,windows,python,venv,virtualenv,macos,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=vscode,pycharm,vim,eclipse,windows,python,venv,virtualenv,macos,linux
 
+# Ignore snippets file
+*magpie.txt
+
 ### Eclipse ###
 .metadata
 bin/

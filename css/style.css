@@ -49,11 +49,15 @@ body {
   background-position: 0 -95px; 
 }
 
+form {
+  display:flex;
+  width:75%;
+}
+
 #book_search {
     width: 75%;
     padding:1em;
     background: #fcfcfc;
-    display: flex;
     border-radius: .2em;
     border: solid 2px white;
     box-shadow: 0 1px 14px rgba(0,0,0, .12);

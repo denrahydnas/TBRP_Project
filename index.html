@@ -18,9 +18,10 @@
         <h1>TBR</h1>
         <p>Books To-Be-Read</p>
           <div id="book_search" class ="d-flex flex-wrap align-items-center">
+            <form name="Booksearch" method="get" action="https://www.googleapis.com/books/v1/volumes?q=" accept-charset="utf-8">
             <div class="p-2">
               <label for="BookTitle">Title</label>
-              <input type="text" id="BookTitle">
+              <input type="text" name="q" id="BookTitle">
             </div>
             <div class="p-2">
               <label for="BookAuthor">Author</label>
@@ -29,6 +30,7 @@
             <div class="ml-md-auto p-2">
               <button type="submit" class=" btn btn-primary p-2 ">Find Book</button>
             </div>
+          </form>
           </div>
       </header>
       <div class="main">	
