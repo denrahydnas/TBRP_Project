@@ -54,7 +54,7 @@ form {
   width:75%;
 }
 
-#book_search {
+#book_forms {
     width: 75%;
     padding:1em;
     background: #fcfcfc;
@@ -67,7 +67,7 @@ form {
     justify-content: center;
   }
 
-#book_search button {
+#book_find button {
     font-size: 1em;
     background: #382C8F;  ;
     border-radius: .2em;
@@ -108,7 +108,7 @@ label {
     Book Styling
   ==================================== */
 
-.bookstack {
+#bookstack {
   padding: 2em;
 }
 
