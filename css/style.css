@@ -34,7 +34,7 @@ body {
     box-shadow: 0 0 26px rgba(0,0,0, .13);
   }
 
-.main {
+.stripe {
   min-height: 100px;
  }
 
@@ -54,7 +54,7 @@ form {
   width:75%;
 }
 
-#book_forms {
+#book_form {
     width: 75%;
     padding:1em;
     background: #fcfcfc;
@@ -77,7 +77,11 @@ form {
     outline: none;
   }
 
- 
+ #book_info {
+   padding: 25px;
+ }
+
+
   /* ================================= 
     Text Styling
   ==================================== */
@@ -105,7 +109,7 @@ label {
 
 
  /* ================================= 
-    Book Styling
+    Book Stack Styling
   ==================================== */
 
 #bookstack {
