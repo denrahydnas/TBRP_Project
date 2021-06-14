@@ -1,13 +1,17 @@
 'use strict';
 
 /* book class used to group info for new book div */
+// need onLoad function to load all existing book objects
 
 class Book {
 
-    constructor(title, author, status = "unread"){
+    constructor(title, author, description, img, bookStat = "unread"){
         this.title = title;
         this.author = author;
-        this.status = status;
+        this.description = description;
+        this.img = img;
+        this.bookStat = bookStat;
+
     }
 
     get date_added(){

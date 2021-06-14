@@ -1,11 +1,10 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Handlee&family=Lobster&family=Mate+SC&family=Nothing+You+Could+Do&family=Poiret+One&family=Raleway:wght@200&family=Stint+Ultra+Condensed&display=swap" rel="stylesheet">
@@ -18,55 +17,50 @@
       <header>
         <h1>TBR</h1>
         <p>Books To-Be-Read</p>
-          <div id="book_form" class ="d-flex flex-wrap">
-          <form id="book_find">
-            <div class="p-2">
-              <label for="BookTitle">Title</label>
-              <input type="text" name="title" id="BookTitle">
-            </div>
-            <div class="p-2">
-              <label for="BookAuthor">Author</label>
-              <input type="text" name="author" id="BookAuthor">
-            </div>
-            <div class="ml-md-auto p-2">
-              <button type="submit" class="btn btn-primary p-2" id="find">Find Book</button>
-            </div>
-          </form> 
+          <div id="bookFind" class ="container">
+              <div class="row align-items-center">
+                <div class="col-sm-auto p-3">
+                  <label for="bookTitle">Title</label>
+                  <input type="text" name="title" id="titleInput">
+                </div>
+                <div class="col-sm-auto p-3">
+                  <label for="bookAuthor">Author</label>
+                  <input type="text" name="author" id="authorInput">
+                </div>
+                <div class="col-sm-3 p-3 justify-content-md-center">
+                  <button type="submit" name="submit" id="findButton">Find Book</button>
+              </div>
+            </div>  
+          </div>
       </header>
-      <div class="stripe">	
+      <div id="main">	
+        <!--<div class="wrapper container" id="bookInfo">
+          <div class="row">
+              <h3 id="title"> Crying in H Mart</h3>
+          </div>
+          <div class="row">  
+            <h4 id="author">Michelle Zauner</h4>
+          </div>
+          <div class="row content"> 
+            <div class="img col-sm-3">
+              <img id="cover" src="http://books.google.com/books/content?id=kRjzDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" class="cover"></img>
+            </div>
+            <div class="col-sm-9">
+              <p id="description">From the indie rockstar of Japanese Breakfast fame, and author of the viral 2018 New Yorker essay that shares the title of this book, an unflinching, powerful memoir about growing up Korean American, losing her mother, and forging her own identity. </p>
+            </div>
+          </div>
+          <div class="row justify-content-md-center">
+            <button id="cancel">Cancel</button>
+            <button id="buy_book">Order Book</button>
+            <button id="add_book">Add Book to Pile</button>
+          </div>
+        </div> -->
       </div>
     </div>
-    <div class="wrapper" id="book_info">
-      <div class="container" id="book_add">
-        <div class="row">
-          <div class="col">
-          <h3 id="title"> Crying in HMart</h3>
-          </div>
-          <div class="col-md-right">
-          <p id="daysOnList">## days in TBR pile</p>
-          </div>
-        </div>
-        <div class="row">  
-          <h4 id="author">Michelle Zauner</h4>
-        </div>
-        <div class="row">
-          <div class="col-md-3">
-            <img id="cover" src="http://books.google.com/books/content?id=kRjzDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" class="cover"></img>
-          </div>
-          <div class="col-md-9">
-            <p id="description">From the indie rockstar of Japanese Breakfast fame, and author of the viral 2018 New Yorker essay that shares the title of this book, an unflinching, powerful memoir about growing up Korean American, losing her mother, and forging her own identity. In this exquisite story of family, food, grief, and endurance, Michelle Zauner proves herself far more than a dazzling singer, songwriter, and guitarist. With humor and heart, she tells of growing up one of the few Asian American kids at her school in Eugene, Oregon; of struggling with her mother's particular, high expectations of her; of a painful adolescence; of treasured months spent in her grandmother's tiny apartment in Seoul, where she and her mother would bond, late at night, over heaping plates of food. </p>
-          </div>
-        </div>
-        <div class="row justify-content-md-center">
-          <button id="remove">Mark as "Read"</button>
-          <button id="cancel">Cancel</button>
-          <button id="add_book">Add Book to Pile</button>
-        </div>
-      </div> 
-    </div>
+   
       
 
-  <div class="wrapper" id="bookstack">
+  <div class="wrapper" id="bookStack">
     <div class ="book b_one">
       <h2>Crying in H Mart - Michelle Zauner</h2>
     </div>

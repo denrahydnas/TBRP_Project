@@ -1,65 +1,111 @@
-const bookdiv = document.getElementById("book_forms");
-const bookfind = document.getElementById("book_find");
-const titleInput = document.getElementById("bookTitle");
-const authorInput = document.getElementById("bookAuthor");
-const findButton = document.getElementById("find");
+//get elements
+const bookFind = document.getElementById("bookFind");
+//get title input value
+const titleInput = document.getElementById("titleInput");
+//get author input value
+const authorInput = document.getElementById("authorInput");
+//get book find button
+const findButton = document.getElementById("findButton");
+//get book display div
+const displayBook = document.getElementById("main");
 
-//prepare url
-const Url = function getURL(){
-    if (titleInput !== null && authorInput !== null){
-        return `https://www.googleapis.com/books/v1/volumes?q=intitle:${titleInput.value}+inauthor:${authorInput.value}`;
-    } else if (titleInput !== null && authorInput == null){
-        return `https://www.googleapis.com/books/v1/volumes?q=intitle:${titleInput.value}&orderBy=newest`;
-    } else if (titleInput == null && authorInput !== null){
-        return `https://www.googleapis.com/books/v1/volumes?q=inauthor:${authorInput.value}&orderBy=newest`;
+// value check and prep title and author input (swap spaces for + sign)
+// create url suffix: if Book input and Author input are used prep both
+// if bookinput is used and author is not, prep just book plus newest
+// if bookinput is not used and author is, prep just author plus newest
+// if neither inputs are filled, pop up alert below search fields
+// add correct suffix to URL (use template literals ``)
+
+function gbUrl(title, author) {
+    if (title !== "" && author !== "") {
+        return (`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}+inauthor:${author}`);
+    } else if (title !== "" && author == "") {
+        return(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}+newest`);
+    } else if (title == "" && author !== "") {
+        return(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${author}+newest`);
     } else {
-
-    };
-
-//Fetch Functions
-
-fetch(`https://www.googleapis.com/books/v1/volumes?q=search-terms&key=your-API-key`)
-  .then(response => response.json())
-  .then(result => {
-this.setState({ books: result.items})
-})};
-
-function fetchData(url){
-    return fetch(url)
-        .then(res => res.json())
-};
-
-fetch("https://openlibrary.org/search.json?")
-    .then(data => bookResults(data))
-
-
-//helper functions
-function getBook() {
-    const title = titleInput.value;
-    const author = authorInput.value;
-    if (title && author){
-        fetchData(`https://openlibrary.org/search.json?title=${title}&author=${author}`)
-        .then(data => bookResults(data))
-    } else if (title){
-        fetchData(`https://openlibrary.org/search.json?title=${title}`)
-        .then(data => bookResults(data))
-    }else if (author){
-        fetchData(`https://openlibrary.org/search.json?author=${author}`)
-        .then(data => bookResults(data))
+        const warning = document.createElement('warning');
+        bookFind.appendChild(warning);
+        warning.innerHTML = "<p>Please enter a title and an author for the best search results.</p>";
     }
 };
 
-function bookResults(data) {
-    const html = `
-    <form id="add_book">
-    <div>
-    <h2> ${data.docs.title} by ${data.docs.author_name}</h2>
-    </div>
-    </form> 
-    `;
-    bookfind.style.display = none;
-    bookdiv.innerHTML = html;
+// on submit, fetch data with correct url
+// catch errors
+// return book info json
+
+async function getJSON(url) {
+try {
+    const response = await fetch(url);
+    return await response.json();
+} catch (error) {
+    throw error;
+}
+}
+
+async function getBookInfo(url) {
+    const bookData = await getJSON(url);
+    const book = bookData.items[0];
+
+    setHTML(book);
+}
+
+// parse for title, author, img, ISBN and description (1st sentence only?? (split at ".", index[0]))
+// show book info on page
+// hide search div? 
+// allow user to add book to pile at bottom of page
+    // create book object and.or add to array, post to somewhere
+//order book
+    // link to https://www.carmichaelsbookstore.com/book/ISBN
+// or cancel and go back to search
+
+
+function setHTML(book) {
+    const bookTitle = book.volumeInfo.title;
+    const bookAuthor = book.volumeInfo.authors[0];
+    const bookDescr = book.volumeInfo.description;
+    // reduce this to one sentence later
+    const bookImg = book.volumeInfo.imageLinks.thumbnail
+    const bookIsbn = book.volumeInfo.industryIdentifiers[0].identifier;
+    
+    const bookHTML = `
+        <div class="wrapper container" id="bookInfo">
+            <div class="row">
+                <h3 id="title">${bookTitle}</h3>
+            </div>
+            <div class="row">  
+                <h4 id="author">${bookAuthor}</h4>
+            </div>
+            <div class="row content"> 
+             <div class="img col-sm-3">
+                <img id="cover" src='${bookImg}' class="cover"></img>
+             </div>
+            <div class="col-sm-9">
+                <p id="description">${bookDescr} </p>
+            </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <button id="cancel">Cancel</button>
+                <a href="https://www.carmichaelsbookstore.com/book/${bookIsbn}" ><button id="buy_book">Order Book</button></a>
+                <button id="add_book">Add Book to Pile</button>
+            </div>
+        </div>` ;
+
+    const bookContent = document.createElement('div');
+    displayBook.appendChild(bookContent);
+    bookContent.innerHTML = bookHTML;
 };
 
-//EVENT LISTENERS//
-findButton.addEventListener("click", getBook);
+
+
+// EVENT LISTENER
+
+findButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const title = (titleInput.value).replace(/\s/g, "+")
+    const author = authorInput.value.replace(/\s/g, "+")
+    const url = gbUrl(title, author);
+    getBookInfo(url);
+
+});
+

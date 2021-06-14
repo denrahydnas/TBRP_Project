@@ -34,8 +34,10 @@ body {
     box-shadow: 0 0 26px rgba(0,0,0, .13);
   }
 
-.stripe {
-  min-height: 100px;
+#main {
+  padding: 5.8em 1.5em .75em;
+  position: relative;
+  z-index: 10;
  }
 
  header {
@@ -49,12 +51,8 @@ body {
   background-position: 0 -95px; 
 }
 
-form {
-  display:flex;
-  width:75%;
-}
 
-#book_form {
+#bookFind {
     width: 75%;
     padding:1em;
     background: #fcfcfc;
@@ -67,7 +65,8 @@ form {
     justify-content: center;
   }
 
-#book_find button {
+
+button {
     font-size: 1em;
     background: #382C8F;  ;
     border-radius: .2em;
@@ -75,22 +74,41 @@ form {
     cursor: pointer;
     border: none;
     outline: none;
+    padding: 5px 10px;
   }
 
- #book_info {
-   padding: 25px;
+input {
+  padding: 5px;
+  font-size: 1em;
+  min-width: 200px;
+}
+
+
+/* ================================= 
+    Book Pop up
+==================================== */
+
+ #bookInfo {
+   padding: 40px;
  }
 
+.content {
+  padding: 20px 15px;
+}
+
+#bookInfo button {
+  margin: 10px;
+}
 
   /* ================================= 
-    Text Styling
+    Text & Content Styling
   ==================================== */
 
- h1 {
+h1 {
   font-family: 'Poiret One', cursive;
   text-shadow: 0 1px 0 rgba(0,0,0, .4);
   font-size: 5.3em;
-  line-height: .65;
+  line-height: .85;
   margin-top: .5em;
 }
 
@@ -99,20 +117,35 @@ h2 {
   line-height:1em;
 }
 
+h3 {
+  font-family: 'Poiret One', cursive;
+  text-shadow: 0 1px 0 rgba(0,0,0, .4);
+  font-size: 3em;
+  margin:auto;
+  line-height: 1.5em;
+}
+
+h4 {
+  font-size: 1.5em;
+  margin:auto;
+}
+
 p {
-  font-size: 1.1em;
+  font-size: 1em;
   text-shadow: 0 1px 0 rgba(0,0,0, .25);
 }
+
 label {
   font-size: 0.7em;
 }
+
 
 
  /* ================================= 
     Book Stack Styling
   ==================================== */
 
-#bookstack {
+#bookStack {
   padding: 2em;
 }
 
@@ -188,22 +221,27 @@ label {
     }
 
     h1 {
-      font-size: 3.6em;
+      font-size: 4em;
       margin: .3em 0 0;
     }
 
-    form {
-      width: 95%;
-      -webkit-flex-direction: column;
-      flex-direction: column;
-      margin: auto;
-      margin-top: 2.5em;
+    h3 {
+      font-size: 2.2em;
     }
 
-    form button {
-      padding: 12px 0;
-      margin-top: .5em;
+    #main {
+      padding: 3em 1em .75em;
     }
+
+    .content {
+      padding: 15px 5px;
+    }
+
+    .img {
+      padding-bottom: 20px;
+      text-align:center;
+    }
+    
 
     .book h2 {
       font-size:18px;
@@ -212,6 +250,15 @@ label {
 
     .b_one {
       margin-left: 0.5em;
+    }
+
+    #bookInfo {
+      padding: 20px;
+      margin-top: 80px;
+    }
+
+    #bookInfo button {
+      margin: auto;
     }
 
   }
