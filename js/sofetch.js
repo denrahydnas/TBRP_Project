@@ -33,6 +33,15 @@ function gbUrl(title, author) {
 // on submit, fetch data with correct url
 // catch errors
 // return book info json
+const errorHTML = `
+<div class="wrapper container" id="errorMsg">
+    <div class="row justify-content-sm-center">
+        <h4>We ran into an issue finding your book. Please check your spelling and try again.</h4>
+    </div>
+    <div class="row">
+        <img id="error" src='../imgs/dog.png' class="cover"></img>
+    </div>
+</div>` ;
 
 async function getJSON(url) {
 try {
@@ -41,22 +50,23 @@ try {
 } catch (error) {
     throw error;
 }
-}
+};
 
 async function getBookInfo(url) {
     const bookData = await getJSON(url);
     const book = bookData.items[0];
 
     setHTML(book);
-}
+};
 
 // parse for title, author, img, ISBN and description (1st sentence only?? (split at ".", index[0]))
 // show book info on page
-// hide search div? 
+// if prev search, replace content w new search info
 // allow user to add book to pile at bottom of page
     // create book object and.or add to array, post to somewhere
 //order book
-    // link to https://www.carmichaelsbookstore.com/book/ISBN
+    // link to https://www.carmichaelsbookstore.com/book/ISBN or https://www.amazon.com/s?k=ISBN
+    // carmichaels does not log ebook IBSNs, better results from amazon :-P
 // or cancel and go back to search
 
 
@@ -85,16 +95,30 @@ function setHTML(book) {
             </div>
             </div>
             <div class="row justify-content-md-center">
-                <button id="cancel">Cancel</button>
-                <a href="https://www.carmichaelsbookstore.com/book/${bookIsbn}" ><button id="buy_book">Order Book</button></a>
+                <button id="closeDiv">Close</button>
+                <a href="https://www.amazon.com/s?k=${bookIsbn}" target="_blank"><button id="buy_book">Order Book</button></a>
                 <button id="add_book">Add Book to Pile</button>
             </div>
         </div>` ;
 
+   
     const bookContent = document.createElement('div');
-    displayBook.appendChild(bookContent);
     bookContent.innerHTML = bookHTML;
-};
+
+// FIX THIS - make it so if someone searches for a new book before closing the old one it will replace old with new
+// rn it will replace only once and loses Div wrapper
+    if ( $('#main').children().length == 0 ) {
+        displayBook.appendChild(bookContent);
+    } else {
+        displayBook.replaceWith(bookContent);
+    };
+// FIX THIS
+
+    const closeDiv = document.getElementById("closeDiv");
+    closeDiv.onclick = function() {
+        displayBook.removeChild(bookContent);
+    };
+}
 
 
 
@@ -106,6 +130,8 @@ findButton.addEventListener('click', (e) => {
     const author = authorInput.value.replace(/\s/g, "+")
     const url = gbUrl(title, author);
     getBookInfo(url);
-
+    titleInput.value = "";
+    authorInput.value = "";
 });
+
 

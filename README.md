@@ -21,11 +21,11 @@ rate and/or review books marked as read
 
 Project requirements:
 
-Your application must have a responsive design through the use of media queries, Bootstrap, CSS Grid, Flexbox, and/or other similar approaches - we need to ensure that you can integrate your new JavaScript skills with your HTML/CSS skills you previously learned
+* Your application must have a responsive design through the use of media queries, Bootstrap, CSS Grid, Flexbox, and/or other similar approaches - we need to ensure that you can integrate your new JavaScript skills with your HTML/CSS skills you previously learned
 We will test your site on at least two different screen sizes (mobile and desktop) and must see that you’ve incorporate some element of responsive design to it
-Project is uploaded to your GitHub repository and shows at minimum 5 separate commits
+* Project is uploaded to your GitHub repository and shows at minimum 5 separate commits
 Using GitHub’s file uploader does not count as a check-in. You must upload via Git
-Project includes a README file that explains the following:
+* Project includes a README file that explains the following:
 A one paragraph or longer description of what your project is
 Which 3+ features you have included from the below lists to meet the requirements
 Any special instructions required for the reviewer to run your project
@@ -35,14 +35,14 @@ We recommend you pick a 4th item (or more!) to add, just in case something goes 
 
 Features List:
 
-** Retrieve data from an external API and display data in your app (such as with fetch() or with AJAX)
+* Retrieve data from an external API and display data in your app (such as with fetch() or with AJAX)
 
 ** Create a form and save the values (on click of Submit button) to an external file 
 You must show us or document where that information is being stored so we can confirm that it’s being saved/persisted
 
 ** Create an array, dictionary or list, populate it with multiple values, retrieve at least one value, and use or display it in your application
 
-** Create and use a function that accepts two or more values (parameters), calculates or determines a new value based on those inputs, and returns a new value
+* Create and use a function that accepts two or more values (parameters), calculates or determines a new value based on those inputs, and returns a new value
 
 ** Calculate and display data based on an external factor (ex: get the current date, and display how many days remaining until some event)
 

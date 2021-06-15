@@ -100,6 +100,20 @@ input {
   margin: 10px;
 }
 
+#errorMsg {
+  padding:25px;
+  text-align:center;
+  font-weight:bolder;
+  color: #A12B4F;
+}
+
+#error {
+  max-width: 600px;
+  padding-top: 20px;
+  margin:auto;
+}
+
+
   /* ================================= 
     Text & Content Styling
   ==================================== */
@@ -129,6 +143,7 @@ h4 {
   font-size: 1.5em;
   margin:auto;
 }
+
 
 p {
   font-size: 1em;
@@ -259,6 +274,14 @@ label {
 
     #bookInfo button {
       margin: auto;
+    }
+
+    #errorMsg {
+      margin-top:60px;
+    }
+
+    #error {
+      width: 350px;
     }
 
   }
