@@ -105,21 +105,18 @@ function setHTML(book) {
     const bookContent = document.createElement('div');
     bookContent.innerHTML = bookHTML;
 
-// FIX THIS - make it so if someone searches for a new book before closing the old one it will replace old with new
-// rn it will replace only once and loses Div wrapper
     if ( $('#main').children().length == 0 ) {
         displayBook.appendChild(bookContent);
     } else {
-        displayBook.replaceWith(bookContent);
+        const oldContent = document.getElementById("bookInfo");
+        oldContent.parentNode.replaceChild(bookContent, oldContent);
     };
-// FIX THIS
 
     const closeDiv = document.getElementById("closeDiv");
     closeDiv.onclick = function() {
         displayBook.removeChild(bookContent);
     };
 }
-
 
 
 // EVENT LISTENER
