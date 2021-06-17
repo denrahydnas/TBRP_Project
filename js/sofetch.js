@@ -12,6 +12,9 @@ const closeButton = document.getElementById("closeDiv");
 const addButton = document.getElementById("addBook");
 // error message div
 const errorMsg = document.getElementById("errorMsg");
+// book stack for added books
+const bookStack = document.getElementById("bookStack");
+
 
 
 // value check and prep title and author input (swap spaces for + sign)
@@ -46,14 +49,14 @@ try {
     return await response.json();
 } catch(error) {
     throw error;
-}
+    }
 };
 
 async function getBookInfo(url) {
     const bookData = await getJSON(url);
     const book = bookData.items[0];
 
-    setHTML(book);
+    return book;
 };
 
 // parse for title, author, img, ISBN, and book description
@@ -85,9 +88,16 @@ findButton.addEventListener('click', (e) => {
     const title = (titleInput.value).replace(/\s/g, "+")
     const author = authorInput.value.replace(/\s/g, "+")
     const url = gbUrl(title, author);
-    getBookInfo(url);
-    titleInput.value = "";
-    authorInput.value = "";
+
+    getBookInfo(url)
+        .then(setHTML)
+        .catch (e => {
+            errorMsg.setAttribute('style', 'display:block');
+            console.error(e);
+        })
+
+        titleInput.value = "";
+        authorInput.value = "";
 });
 
 closeButton.addEventListener('click', (e) => {
@@ -96,7 +106,10 @@ closeButton.addEventListener('click', (e) => {
 
 addButton.addEventListener('click', (e) => {
     // create book object with current book info
-    // add book object to array
+    //const newBook = new Book(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn);
+    //bookShelf.unshift(newBook);
+    //console.log(bookShelf);
+    // add book object to array (array.unshift() to add to top of array)
     // reload bookStack incl new div
 });
 

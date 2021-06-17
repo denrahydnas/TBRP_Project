@@ -1,22 +1,22 @@
 'use strict';
 
-/* book class used to group info for new book div */
-// need onLoad function to load all existing book objects
+// book array - eventually write this to db to save
+const bookShelf = [];
 
+// book class used to store book info in array 
 class Book {
-
-    constructor(title, author, description, img, bookStat = "unread"){
+    constructor(title, author, description, img, isbn, status = "unread"){
         this.title = title;
         this.author = author;
         this.description = description;
         this.img = img;
-        this.bookStat = bookStat;
-
-    }
+        this.isbn = isbn;
+        this.status = status;
+    };
 
     get date_added(){
         return new Date();
-    }
+    };
 
     get spineCSS(){
         const spines = [
@@ -27,12 +27,24 @@ class Book {
             ".b_five",
         ];
         return (spines[Math.floor(Math.random() * spines.length)]);
-    }
+    };
+};
 
-}
+// create book object and add to array
+function addBookToShelf(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn) {
+    const newBook = new Book(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn);
+    bookShelf.unshift(newBook);
+};
 
-const HMart = new Book("Crying at HMart", "Michelle Zauner")
+// append book divs to bookStack - use with forEach
+// call to set stack = bookShelf.forEach(setBookStack);
+function setBookStack(book){
+        const bookDiv = document.createElement('div');
+        bookDiv.innerHTML = `    
+            <div class ="book ${book.spineCSS}" id="${book.bookIsbn}">
+            <h2>"${book.bookTitle} - ${book.bookAuthor}"</h2>
+            </div>`;
+        bookShelf.appendChild(bookDiv);
+};
 
-console.log(HMart);
-console.log(HMart.date_added);
-console.log(HMart.spineCSS);
+// call to set stack = bookShelf.forEach(setBookStack);
