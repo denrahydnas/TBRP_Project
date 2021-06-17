@@ -21,11 +21,11 @@
               <div class="row align-items-center">
                 <div class="col-sm-auto p-3">
                   <label for="bookTitle">Title</label>
-                  <input type="text" name="title" id="titleInput">
+                  <input type="text" id="titleInput">
                 </div>
                 <div class="col-sm-auto p-3">
                   <label for="bookAuthor">Author</label>
-                  <input type="text" name="author" id="authorInput">
+                  <input type="text" id="authorInput">
                 </div>
                 <div class="col-sm-3 p-3 justify-content-md-center">
                   <button type="submit" name="submit" id="findButton">Find Book</button>
@@ -34,7 +34,7 @@
           </div>
       </header>
       <div id="main">	
-        <!-- return info from Google Books API here -->
+        <!-- hidden error div -->
         <div class="wrapper container" style="display:none" id="errorMsg">
           <div class="row justify-content-sm-center">
               <h4>We ran into an issue finding your book. Please check your spelling and try again.</h4>
@@ -42,7 +42,29 @@
           <div class="row">
               <img id="error" src='../imgs/dog.png' class="cover"></img>
           </div>
-      </div>
+        </div>
+        <!-- return info from Google Books API here -->
+        <div class="wrapper container" style="display:none" id="bookInfo">
+          <div class="row">
+              <h3 id="title"></h3>
+          </div>
+          <div class="row">  
+              <h4 id="author"></h4>
+          </div>
+          <div class="row content"> 
+           <div class="img col-sm-3">
+              <img id="cover" class="cover"></img>
+           </div>
+          <div class="col-sm-9">
+              <p id="description"></p>
+          </div>
+          </div>
+          <div class="row justify-content-md-center">
+              <button id="closeDiv">Close</button>
+              <a id="buyBook" href="" target="_blank"><button>Order Book</button></a>
+              <button id="addBook">Add Book to Pile</button>
+          </div>
+        </div>
       </div>
     </div>
    

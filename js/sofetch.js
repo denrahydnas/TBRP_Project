@@ -6,8 +6,10 @@ const titleInput = document.getElementById("titleInput");
 const authorInput = document.getElementById("authorInput");
 //get book find button
 const findButton = document.getElementById("findButton");
-//get book display div
-const displayBook = document.getElementById("main");
+//get div close button
+const closeButton = document.getElementById("closeDiv");
+//get add book button
+const addButton = document.getElementById("addBook");
 // error message div
 const errorMsg = document.getElementById("errorMsg");
 
@@ -36,7 +38,6 @@ function gbUrl(title, author) {
 
 // on submit, fetch data with correct url
 // catch errors - show hidden div if error (display:block)
-
 // return book info json
 
 async function getJSON(url) {
@@ -45,7 +46,6 @@ try {
     return await response.json();
 } catch(error) {
     throw error;
-    errorMsg.setAttribute('style', 'display:block');
 }
 };
 
@@ -56,9 +56,7 @@ async function getBookInfo(url) {
     setHTML(book);
 };
 
-
-
-// parse for title, author, img, ISBN and description (1st sentence only?? (split at ".", index[0]))
+// parse for title, author, img, ISBN, and book description
     // incl link to order book
     // link to https://www.carmichaelsbookstore.com/book/ISBN or https://www.amazon.com/s?k=ISBN
     // carmichaels does not log ebook IBSNs, better results from amazon :-P
@@ -67,64 +65,20 @@ function setHTML(book) {
     const bookTitle = book.volumeInfo.title;
     const bookAuthor = book.volumeInfo.authors[0];
     const bookDescr = book.volumeInfo.description;
-    const bookImg = book.volumeInfo.imageLinks.thumbnail
+    const bookImg = book.volumeInfo.imageLinks.thumbnail;
     const bookIsbn = book.volumeInfo.industryIdentifiers[0].identifier;
-    
-    const bookHTML = `
-        <div class="wrapper container" id="bookInfo">
-            <div class="row">
-                <h3 id="title">${bookTitle}</h3>
-            </div>
-            <div class="row">  
-                <h4 id="author">${bookAuthor}</h4>
-            </div>
-            <div class="row content"> 
-             <div class="img col-sm-3">
-                <img id="cover" src='${bookImg}' class="cover"></img>
-             </div>
-            <div class="col-sm-9">
-                <p id="description">${bookDescr} </p>
-            </div>
-            </div>
-            <div class="row justify-content-md-center">
-                <button id="closeDiv">Close</button>
-                <a href="https://www.amazon.com/s?k=${bookIsbn}" target="_blank"><button id="buy_book">Order Book</button></a>
-                <button id="add_book">Add Book to Pile</button>
-            </div>
-        </div>`;
 
-    // show book info on page
-    // if prev search, replace content w new search info
+    document.getElementById("title").textContent = bookTitle;
+    document.getElementById("author").textContent = bookAuthor;
+    document.getElementById("description").textContent = bookDescr;
+    document.getElementById("cover").setAttribute('src', bookImg);
+    document.getElementById("buyBook").setAttribute('href', `https://www.amazon.com/s?k=${bookIsbn}`);
 
-    const bookContent = document.createElement('div');
-    bookContent.innerHTML = bookHTML;
-
-    if ( $('#main').children().length == 1 ) {
-        displayBook.appendChild(bookContent);
-    } else {
-        const oldContent = document.getElementById("bookInfo");
-        oldContent.parentNode.replaceChild(bookContent, oldContent);
-    };
-
-    // or close div entirely *** ONLY WORKS FIRST TIME *** *** FIX ME *** 
-    const closeDiv = document.getElementById("closeDiv");
-    closeDiv.onclick = function() {
-       displayBook.removeChild(bookContent);
-    };
-
-    // allow user to add book to pile at bottom of page
-    // create book object and add to array, post to somewhere
-         /* WHAT IF
-            could the botton button row be hidden until book html is posted? 
-            bookContent.InnerHTML updates the same
-            order button.innerHTML would update separately
-            order link would need to be updated with it everytime, 
-            but it may solve the close div issue - that will just be a hide toggle now
-        */
+    document.getElementById("bookInfo").setAttribute("style", "display:block");
 };
 
 
-// EVENT LISTENER
+// EVENT LISTENERS
 
 findButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -136,4 +90,13 @@ findButton.addEventListener('click', (e) => {
     authorInput.value = "";
 });
 
+closeButton.addEventListener('click', (e) => {
+    bookInfo.setAttribute('style', 'display:none');
+});
+
+addButton.addEventListener('click', (e) => {
+    // create book object with current book info
+    // add book object to array
+    // reload bookStack incl new div
+});
 
