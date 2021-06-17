@@ -245,6 +245,7 @@ label {
     }
 
     #main {
+      margin: 3.5em auto;
       padding: 3em 1em .75em;
     }
 
@@ -281,7 +282,7 @@ label {
     }
 
     #error {
-      width: 350px;
+      width: 300px;
     }
 
   }
