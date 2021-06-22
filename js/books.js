@@ -45,7 +45,7 @@ function setBookStack(book){
             <div class="book ${book.spineCSS}">
             <h2>${book.title} - ${book.author}</h2>
             </div>`;
-        bookStack.appendChild(bookDiv);
+        bookStack.prepend(bookDiv);
 };
 
 // call to set stack = bookShelf.forEach(setBookStack);

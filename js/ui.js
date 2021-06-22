@@ -7,6 +7,6 @@ add read/unread toggle
 add days on list
 add buttons to remove from list, save updated info, etc
 
-Drop down api????
+add drag & drop api for each book in stack
 
 */

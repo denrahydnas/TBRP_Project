@@ -108,7 +108,6 @@ addButton.addEventListener('click', (e) => {
     setBookStack(book);
     bookInfo.setAttribute('style', 'display:none');
 
-    // fix to add new book to top of stack
     // save bookStack array somewhere 
 });
 
