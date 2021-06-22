@@ -20,11 +20,11 @@ class Book {
 
     get spineCSS(){
         const spines = [
-            ".b_one",
-            ".b_two",
-            ".b_three",
-            ".b_four",
-            ".b_five",
+            "b_one",
+            "b_two",
+            "b_three",
+            "b_four",
+            "b_five",
         ];
         return (spines[Math.floor(Math.random() * spines.length)]);
     };
@@ -40,11 +40,12 @@ function addBookToShelf(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn) {
 // call to set stack = bookShelf.forEach(setBookStack);
 function setBookStack(book){
         const bookDiv = document.createElement('div');
-        bookDiv.innerHTML = `    
-            <div class ="book ${book.spineCSS}" id="${book.bookIsbn}">
-            <h2>"${book.bookTitle} - ${book.bookAuthor}"</h2>
+        const bookStack = document.getElementById("bookStack");
+        bookDiv.innerHTML = `
+            <div class="book ${book.spineCSS}">
+            <h2>${book.title} - ${book.author}</h2>
             </div>`;
-        bookShelf.appendChild(bookDiv);
+        bookStack.appendChild(bookDiv);
 };
 
 // call to set stack = bookShelf.forEach(setBookStack);

@@ -55,9 +55,9 @@ try {
 async function getBookInfo(url) {
     const bookData = await getJSON(url);
     const book = bookData.items[0];
-
     return book;
 };
+
 
 // parse for title, author, img, ISBN, and book description
     // incl link to order book
@@ -65,21 +65,16 @@ async function getBookInfo(url) {
     // carmichaels does not log ebook IBSNs, better results from amazon :-P
 
 function setHTML(book) {
-    const bookTitle = book.volumeInfo.title;
-    const bookAuthor = book.volumeInfo.authors[0];
-    const bookDescr = book.volumeInfo.description;
-    const bookImg = book.volumeInfo.imageLinks.thumbnail;
-    const bookIsbn = book.volumeInfo.industryIdentifiers[0].identifier;
-
-    document.getElementById("title").textContent = bookTitle;
-    document.getElementById("author").textContent = bookAuthor;
-    document.getElementById("description").textContent = bookDescr;
-    document.getElementById("cover").setAttribute('src', bookImg);
-    document.getElementById("buyBook").setAttribute('href', `https://www.amazon.com/s?k=${bookIsbn}`);
-
+    document.getElementById("title").textContent = book.volumeInfo.title;
+    document.getElementById("author").textContent = book.volumeInfo.authors[0];
+    document.getElementById("description").textContent = book.volumeInfo.description;
+    document.getElementById("cover").setAttribute('src', book.volumeInfo.imageLinks.thumbnail);
+    document.getElementById("buyBook").setAttribute('href', `https://www.amazon.com/s?k=${book.volumeInfo.industryIdentifiers[0].identifier}`);
     document.getElementById("bookInfo").setAttribute("style", "display:block");
-};
 
+    // add book to bookShelf array for fututre use
+    addBookToShelf(book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.description, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.industryIdentifiers[0].identifier)
+};
 
 // EVENT LISTENERS
 
@@ -100,16 +95,20 @@ findButton.addEventListener('click', (e) => {
         authorInput.value = "";
 });
 
+
 closeButton.addEventListener('click', (e) => {
     bookInfo.setAttribute('style', 'display:none');
+    // remove current book from bookShelf array??
 });
+
 
 addButton.addEventListener('click', (e) => {
     // create book object with current book info
-    //const newBook = new Book(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn);
-    //bookShelf.unshift(newBook);
-    //console.log(bookShelf);
-    // add book object to array (array.unshift() to add to top of array)
-    // reload bookStack incl new div
+    const book = bookShelf[0];
+    setBookStack(book);
+    bookInfo.setAttribute('style', 'display:none');
+
+    // fix to add new book to top of stack
+    // save bookStack array somewhere 
 });
 
