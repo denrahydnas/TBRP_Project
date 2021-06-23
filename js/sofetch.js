@@ -7,7 +7,7 @@ const authorInput = document.getElementById("authorInput");
 //get book find button
 const findButton = document.getElementById("findButton");
 //get div close button
-const closeButton = document.getElementById("closeDiv");
+const cancelButton = document.getElementById("closeDiv");
 //get add book button
 const addButton = document.getElementById("addBook");
 // error message div
@@ -72,7 +72,7 @@ function setHTML(book) {
     document.getElementById("buyBook").setAttribute('href', `https://www.amazon.com/s?k=${book.volumeInfo.industryIdentifiers[0].identifier}`);
     document.getElementById("bookInfo").setAttribute("style", "display:block");
 
-    // add book to bookShelf array for fututre use
+    // add book to bookShelf array for future use (title, author, description, img link, isbn 13)
     addBookToShelf(book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.description, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.industryIdentifiers[0].identifier)
 };
 
@@ -96,18 +96,19 @@ findButton.addEventListener('click', (e) => {
 });
 
 
-closeButton.addEventListener('click', (e) => {
+cancelButton.addEventListener('click', (e) => {
     bookInfo.setAttribute('style', 'display:none');
-    // remove current book from bookShelf array??
+    // remove current book from bookShelf array
+    tempShelf.shift();
 });
 
 
 addButton.addEventListener('click', (e) => {
     // create book object with current book info
-    const book = bookShelf[0];
+    const book = tempShelf[0];
     setBookStack(book);
     bookInfo.setAttribute('style', 'display:none');
-
+    tempShelf.shift();
     // save bookStack array somewhere 
 });
 

@@ -2,6 +2,8 @@
 
 // book array - eventually write this to db to save
 const bookShelf = [];
+//holding area for books before they are added to shelf
+const tempShelf = [];
 
 // book class used to store book info in array 
 class Book {
@@ -33,7 +35,7 @@ class Book {
 // create book object and add to array
 function addBookToShelf(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn) {
     const newBook = new Book(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn);
-    bookShelf.unshift(newBook);
+    tempShelf.unshift(newBook);
 };
 
 // append book divs to bookStack - use with forEach
@@ -46,6 +48,7 @@ function setBookStack(book){
             <h2>${book.title} - ${book.author}</h2>
             </div>`;
         bookStack.prepend(bookDiv);
+        bookShelf.unshift(book);
 };
 
 // call to set stack = bookShelf.forEach(setBookStack);
