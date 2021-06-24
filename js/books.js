@@ -44,11 +44,10 @@ function setBookStack(book){
         const bookDiv = document.createElement('div');
         const bookStack = document.getElementById("bookStack");
         bookDiv.innerHTML = `
-            <div class="book ${book.spineCSS}">
+            <div class="book ${book.spineCSS}" id="${book.isbn}">
             <h2>${book.title} - ${book.author}</h2>
             </div>`;
         bookStack.prepend(bookDiv);
         bookShelf.unshift(book);
 };
 
-// call to set stack = bookShelf.forEach(setBookStack);

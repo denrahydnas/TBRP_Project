@@ -16,7 +16,6 @@ const errorMsg = document.getElementById("errorMsg");
 const bookStack = document.getElementById("bookStack");
 
 
-
 // value check and prep title and author input (swap spaces for + sign)
 // add correct suffix to URL (use template literals ``)
 
@@ -80,7 +79,7 @@ function setHTML(book) {
 
 findButton.addEventListener('click', (e) => {
     e.preventDefault();
-    const title = (titleInput.value).replace(/\s/g, "+")
+    const title = titleInput.value.replace(/\s/g, "+")
     const author = authorInput.value.replace(/\s/g, "+")
     const url = gbUrl(title, author);
 
