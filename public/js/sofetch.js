@@ -1,6 +1,4 @@
 
-
-
 //get elements
 const bookFind = document.getElementById("bookFind");
 //get title input value
@@ -63,17 +61,14 @@ async function getBookInfo(url) {
 // Send data to database.json w post fetch req
 async function postData(url, book) {
 
-    // Default options are marked with *
-
     const response = await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         headers: {
         'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-        body: JSON.stringify(book) // body data type must match "Content-Type" header
+        body: JSON.stringify(book) 
     });
-    console.log(JSON.stringify(book));
+    //console.log(JSON.stringify(book));
     return response.json(); // parses JSON response into native JavaScript objects
 };
 
@@ -128,8 +123,14 @@ addButton.addEventListener('click', (e) => {
     const book = tempShelf[0];
     setBookStack(book);
     bookInfo.setAttribute('style', 'display:none');
-    postData('/add-book', book);
-    //tempShelf.shift();
-    // save bookStack array somewhere 
+    // save bookStack array to db
+    //postData('/add-book', book);
+    postData('add-book', book)
+        .then(data => {
+        database.set(data);
+        console.log(database); // JSON data parsed by `data.json()` call
+    });
+    //clear temp shelf
+    tempShelf.shift();
 });
 

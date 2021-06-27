@@ -1,23 +1,20 @@
-'use strict';
+
 
 // book array - eventually write this to db to save
-const bookShelf = [];
+const bookShelf = []; 
 //holding area for books before they are added to shelf
 const tempShelf = [];
 
 // book class used to store book info in array 
 class Book {
-    constructor(title, author, description, img, isbn, status = "unread"){
+    constructor(title, author, description, img, isbn, status = "unread", date = new Date()){
         this.title = title;
         this.author = author;
         this.description = description;
         this.img = img;
         this.isbn = isbn;
         this.status = status;
-    };
-
-    get date_added(){
-        return new Date();
+        this.date = date;
     };
 
     get spineCSS(){
@@ -30,6 +27,7 @@ class Book {
         ];
         return (spines[Math.floor(Math.random() * spines.length)]);
     };
+
 };
 
 // create book object and add to array
@@ -48,7 +46,5 @@ function setBookStack(book){
             <h2>${book.title} - ${book.author}</h2>
             </div>`;
         bookStack.prepend(bookDiv);
-        bookShelf.unshift(book);
-        console.log(bookShelf);
+        //bookShelf.unshift(book);
 };
-

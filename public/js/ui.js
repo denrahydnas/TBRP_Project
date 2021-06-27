@@ -1,5 +1,5 @@
 /* 
-create on-load event that populates bookStack with books in bookShelf array
+create on-load event that populates bookStack with books in book database
 possibly just unread books? allow filtering?
 
 create click event on each book that opens bookInfo div and populates with book info
