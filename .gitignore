@@ -4,6 +4,9 @@
 # Ignore snippets file
 *magpie.txt
 
+# ignore node modules
+node_modules/
+
 ### Eclipse ###
 .metadata
 bin/
