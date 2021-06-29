@@ -7,28 +7,32 @@ const tempShelf = [];
 
 // book class used to store book info in array 
 class Book {
-    constructor(title, author, description, img, isbn, status = "unread", date = new Date()){
+    constructor(title, author, description, img, isbn, spineCSS = spineRandomizer(), status = "unread", date = new Date()){
         this.title = title;
         this.author = author;
         this.description = description;
         this.img = img;
         this.isbn = isbn;
+        this.spineCSS = spineCSS;
         this.status = status;
         this.date = date;
     };
-
-    get spineCSS(){
-        const spines = [
-            "b_one",
-            "b_two",
-            "b_three",
-            "b_four",
-            "b_five",
-        ];
-        return (spines[Math.floor(Math.random() * spines.length)]);
-    };
-
 };
+
+
+// spine decoration randomizer function
+function spineRandomizer(){
+    const spines = [
+        "b_one",
+        "b_two",
+        "b_three",
+        "b_four",
+        "b_five",
+    ];
+    return (spines[Math.floor(Math.random() * spines.length)]);
+};
+
+
 
 // create book object and add to array
 function addBookToShelf(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn) {

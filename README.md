@@ -40,7 +40,7 @@ Features List:
 ** Create a form and save the values (on click of Submit button) to an external file 
 You must show us or document where that information is being stored so we can confirm that it’s being saved/persisted
 
-** Create an array, dictionary or list, populate it with multiple values, retrieve at least one value, and use or display it in your application
+* Create an array, dictionary or list, populate it with multiple values, retrieve at least one value, and use or display it in your application
 
 * Create and use a function that accepts two or more values (parameters), calculates or determines a new value based on those inputs, and returns a new value
 
@@ -48,6 +48,7 @@ You must show us or document where that information is being stored so we can co
 
 ** Implement a drag-and-drop interface that allows the user to move elements or items on the page around (reference). For example, drag a file or image into the app from your desktop and have it display. 
 
+* Create a web server with at least one route and connect to it from your application using ExpressJS**
 
 
 
@@ -62,5 +63,5 @@ Create 3 or more unit tests for your application (and document how to run them)
 Build a conversion tool that converts user input to another type and displays it (ex: converts cups to grams)
 ** Implement a drag-and-drop interface that allows the user to move elements or items on the page around (reference). For example, drag a file or image into the app from your desktop and have it display. 
 Develop your project using a common JavaScript framework such as React, Angular, Vue, etc.
-Create a web server with at least one route and connect to it from your application using ExpressJS
+** Create a web server with at least one route and connect to it from your application using ExpressJS**
 

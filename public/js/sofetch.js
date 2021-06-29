@@ -58,7 +58,9 @@ async function getBookInfo(url) {
     return book;
 };
 
+
 // Send data to database.json w post fetch req
+
 async function postData(url, book) {
 
     const response = await fetch(url, {
@@ -71,7 +73,6 @@ async function postData(url, book) {
     //console.log(JSON.stringify(book));
     return response.json(); // parses JSON response into native JavaScript objects
 };
-
 
 
 // parse for title, author, img, ISBN, and book description
@@ -124,11 +125,10 @@ addButton.addEventListener('click', (e) => {
     setBookStack(book);
     bookInfo.setAttribute('style', 'display:none');
     // save bookStack array to db
-    //postData('/add-book', book);
-    postData('add-book', book)
+    postData('/database.json', book)
         .then(data => {
         database.set(data);
-        console.log(database); // JSON data parsed by `data.json()` call
+        //console.log(database); // JSON data parsed by `data.json()` call
     });
     //clear temp shelf
     tempShelf.shift();
