@@ -11,9 +11,18 @@ const cancelButton = document.getElementById("closeDiv");
 const addButton = document.getElementById("addBook");
 // error message div
 const errorMsg = document.getElementById("errorMsg");
+// book stack for added books
+const bookStack = document.getElementById("bookStack");
+//book load placeholder button (eventually on load)        
+const bookLoader = document.getElementById("load");
 
 
-// EVENT LISTENERS
+//holding area for books before they are added to shelf
+const tempShelf = [];
+//holding area for received JSON
+const bookShelf = []; 
+
+// FIND BOOKS FROM INPUTS
 
 findButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -28,10 +37,35 @@ findButton.addEventListener('click', (e) => {
             console.error(e);
         })
 
-        titleInput.value = "";
-        authorInput.value = "";
+    titleInput.value = "";
+    authorInput.value = "";
 });
 
+// create book object and add to array
+function addBookToShelf(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn) {
+    const newBook = new Book(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn);
+    tempShelf.unshift(newBook);
+};
+
+// parse for title, author, img, ISBN, and book description
+    // incl link to order book
+    // link to https://www.carmichaelsbookstore.com/book/ISBN or https://www.amazon.com/s?k=ISBN
+    // carmichaels does not log ebook IBSNs, better results from amazon :-P
+
+function setHTML(book) {
+    document.getElementById("title").textContent = book.volumeInfo.title;
+    document.getElementById("author").textContent = book.volumeInfo.authors[0];
+    document.getElementById("description").textContent = book.volumeInfo.description;
+    document.getElementById("cover").setAttribute('src', book.volumeInfo.imageLinks.thumbnail);
+    document.getElementById("buyBook").setAttribute('href', `https://www.amazon.com/s?k=${book.volumeInfo.industryIdentifiers[0].identifier}`);
+    document.getElementById("bookInfo").setAttribute("style", "display:block");
+    
+        // add book to bookShelf array for future use (title, author, description, img link, isbn 13)
+    addBookToShelf(book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.description, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.industryIdentifiers[0].identifier)
+};
+    
+
+// CLOSE BOOK WINDOW
 
 cancelButton.addEventListener('click', (e) => {
     bookInfo.setAttribute('style', 'display:none');
@@ -39,6 +73,8 @@ cancelButton.addEventListener('click', (e) => {
     tempShelf.shift();
 });
 
+
+// ADD TO BOOKSTACK
 
 addButton.addEventListener('click', (e) => {
     // create book object with current book info
@@ -52,6 +88,22 @@ addButton.addEventListener('click', (e) => {
     tempShelf.shift();
 });
 
+// append book divs to bookStack - use with forEach
+// call to set stack = bookShelf.forEach(setBookStack);
+function setBookStack(book){
+    const bookDiv = document.createElement('div');
+    const bookStack = document.getElementById("bookStack");
+    bookDiv.innerHTML = `
+        <div class="book ${book.spineCSS}" id="${book.isbn}">
+        <h2>${book.title} - ${book.author}</h2>
+        </div>`;
+    bookStack.prepend(bookDiv);
+    bookShelf.unshift(book);  
+};
+
+
+// LOAD BOOKS FROM SHELF
+
 bookLoader.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -64,3 +116,25 @@ bookLoader.addEventListener('click', (e) => {
             console.error(e);
         })
 });
+
+//add books to shelf ON LOAD 
+//used in Event Listener ONLOAD with getShelfInfo fetch
+
+function getBooks(shelfData) {
+    for (let i = 0; i < shelfData.length; i++) {
+        bookShelf.push(shelfData[i]);
+    }
+    return bookShelf;
+};
+
+function apiHTML(bookShelf) {
+    for (let i = 0; i < bookShelf.length; i++) {
+        const bookDiv = document.createElement('div');
+        bookDiv.innerHTML = `
+        <div class="book ${bookShelf[i].spineCSS}" id="${bookShelf[i].isbn}">
+        <h2>${bookShelf[i].title} - ${bookShelf[i].author}</h2>
+        </div>`;
+        bookStack.prepend(bookDiv);
+    }
+};
+    
