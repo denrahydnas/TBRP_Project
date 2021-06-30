@@ -22,7 +22,7 @@ const tempShelf = [];
 //holding area for received JSON
 const bookShelf = []; 
 
-// FIND BOOKS FROM INPUTS
+// FIND & ADD BOOKS FROM INPUT FIELDS
 
 findButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -91,6 +91,8 @@ addButton.addEventListener('click', (e) => {
 // append book divs to bookStack - use with forEach
 // call to set stack = bookShelf.forEach(setBookStack);
 function setBookStack(book){
+    const apiUrl = "http://localhost:8081/bookshelf";
+    addBook(apiUrl, book);
     const bookDiv = document.createElement('div');
     const bookStack = document.getElementById("bookStack");
     bookDiv.innerHTML = `
@@ -98,13 +100,15 @@ function setBookStack(book){
         <h2>${book.title} - ${book.author}</h2>
         </div>`;
     bookStack.prepend(bookDiv);
-    bookShelf.unshift(book);  
+    //bookShelf.unshift(book);  
+
 };
 
 
 // LOAD BOOKS FROM SHELF
-
-bookLoader.addEventListener('click', (e) => {
+//add books to shelf ON LOAD 
+window.addEventListener('load', (e) => {
+//bookLoader.addEventListener('click', (e) => {
     e.preventDefault();
 
     const apiUrl = "http://localhost:8081/bookshelf";
@@ -117,7 +121,6 @@ bookLoader.addEventListener('click', (e) => {
         })
 });
 
-//add books to shelf ON LOAD 
 //used in Event Listener ONLOAD with getShelfInfo fetch
 
 function getBooks(shelfData) {

@@ -1,7 +1,4 @@
 const express = require("express");
-//const jsoning = require('jsoning');
-
-//const database = new jsoning("database.json");
  
 const app = express();
 const fs = require('fs');
@@ -15,10 +12,6 @@ app.use('/images', express.static(__dirname + '/public/images'));
 app.use(express.json()); //Used to parse JSON bodies
 
 const routes = require('./routes/routes.js')(app, fs);
-//app.post('/add-book', function (req, res) {
-    //console.log(JSON.stringify(req.body));
-//    res.sendStatus('200');
-//});
  
 const server = app.listen(8081, function(){
     const port = server.address().port;

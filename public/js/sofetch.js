@@ -1,5 +1,4 @@
 
-
 // value check and prep title and author input (swap spaces for + sign)
 // add correct suffix to URL (use template literals ``)
 
@@ -48,6 +47,15 @@ async function getShelfInfo(url) {
     return shelfData;
 };
 
+// add a book to JSON API
+// POST request using fetch()
 
-
-
+function addBook(url, book) {
+    fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(book)
+    })
+        .then(res => res.text())
+        .then(text => console.log(text))
+}
