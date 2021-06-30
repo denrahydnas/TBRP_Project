@@ -40,11 +40,9 @@ const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') =
   app.post('/bookshelf', (req, res) => {
 
     readFile(data => {
-      // Note: this isn't ideal for production use. 
-      // ideally, use something like a UUID or other GUID for a unique ID value
-      const newBookId = (Math.floor(Math.random() * 100));
-
-      // add the new user
+      // add book id (will overwrite w/o book id)
+      const newBookId = data.length;
+      // add the new book
       data[newBookId] = req.body;
 
       writeFile(JSON.stringify(data, null, 2), () => {

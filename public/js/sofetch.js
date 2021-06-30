@@ -47,9 +47,8 @@ async function getShelfInfo(url) {
     return shelfData;
 };
 
-// add a book to JSON API
+// add a book to JSON API file
 // POST request using fetch()
-
 function addBook(url, book) {
     fetch(url, {
         method: 'POST',
