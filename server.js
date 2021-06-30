@@ -1,9 +1,10 @@
 const express = require("express");
-const jsoning = require('jsoning');
+//const jsoning = require('jsoning');
 
-const database = new jsoning("database.json");
+//const database = new jsoning("database.json");
  
 const app = express();
+const fs = require('fs');
  
 app.use(express.static('public'));
 
@@ -13,10 +14,11 @@ app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/images', express.static(__dirname + '/public/images'));
 app.use(express.json()); //Used to parse JSON bodies
 
-app.post('/database.json', function (req, res) {
-    console.log(req.body);
-    //res.send('POST Request');
-});
+const routes = require('./routes/routes.js')(app, fs);
+//app.post('/add-book', function (req, res) {
+    //console.log(JSON.stringify(req.body));
+//    res.sendStatus('200');
+//});
  
 const server = app.listen(8081, function(){
     const port = server.address().port;

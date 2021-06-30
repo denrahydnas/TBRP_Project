@@ -1,20 +1,56 @@
-
-//get elements
-const bookFind = document.getElementById("bookFind");
-//get title input value
-const titleInput = document.getElementById("titleInput");
-//get author input value
-const authorInput = document.getElementById("authorInput");
-//get book find button
-const findButton = document.getElementById("findButton");
-//get div close button
-const cancelButton = document.getElementById("closeDiv");
-//get add book button
-const addButton = document.getElementById("addBook");
-// error message div
-const errorMsg = document.getElementById("errorMsg");
 // book stack for added books
 const bookStack = document.getElementById("bookStack");
+
+//holding area for books before they are added to shelf
+const tempShelf = [];
+
+// book class used to store book info in array 
+class Book {
+    constructor(title, author, description, img, isbn, spineCSS = spineRandomizer(), status = "unread", date = new Date()){
+        this.title = title;
+        this.author = author;
+        this.description = description;
+        this.img = img;
+        this.isbn = isbn;
+        this.spineCSS = spineCSS;
+        this.status = status;
+        this.date = date;
+    };
+};
+
+
+// spine decoration randomizer function
+function spineRandomizer(){
+    const spines = [
+        "b_one",
+        "b_two",
+        "b_three",
+        "b_four",
+        "b_five",
+    ];
+    return (spines[Math.floor(Math.random() * spines.length)]);
+};
+
+
+
+// create book object and add to array
+function addBookToShelf(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn) {
+    const newBook = new Book(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn);
+    tempShelf.unshift(newBook);
+};
+
+// append book divs to bookStack - use with forEach
+// call to set stack = bookShelf.forEach(setBookStack);
+function setBookStack(book){
+        const bookDiv = document.createElement('div');
+        const bookStack = document.getElementById("bookStack");
+        bookDiv.innerHTML = `
+            <div class="book ${book.spineCSS}" id="${book.isbn}">
+            <h2>${book.title} - ${book.author}</h2>
+            </div>`;
+        bookStack.prepend(bookDiv);
+        bookShelf.unshift(book);  
+};
 
 
 // value check and prep title and author input (swap spaces for + sign)
@@ -52,27 +88,19 @@ try {
     }
 };
 
+//get book info from Google books
 async function getBookInfo(url) {
     const bookData = await getJSON(url);
     const book = bookData.items[0];
     return book;
 };
 
-
-// Send data to database.json w post fetch req
-
-async function postData(url, book) {
-
-    const response = await fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        headers: {
-        'Content-Type': 'application/json'
-      },
-        body: JSON.stringify(book) 
-    });
-    //console.log(JSON.stringify(book));
-    return response.json(); // parses JSON response into native JavaScript objects
+// get shelf info from internal json file
+async function getShelfInfo(url) {
+    const shelfData = await getJSON(url);
+    return shelfData;
 };
+
 
 
 // parse for title, author, img, ISBN, and book description
@@ -92,45 +120,25 @@ function setHTML(book) {
     addBookToShelf(book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.description, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.industryIdentifiers[0].identifier)
 };
 
-// EVENT LISTENERS
-
-findButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    const title = titleInput.value.replace(/\s/g, "+")
-    const author = authorInput.value.replace(/\s/g, "+")
-    const url = gbUrl(title, author);
-
-    getBookInfo(url)
-        .then(setHTML)
-        .catch (e => {
-            errorMsg.setAttribute('style', 'display:block');
-            console.error(e);
-        })
-
-        titleInput.value = "";
-        authorInput.value = "";
-});
 
 
-cancelButton.addEventListener('click', (e) => {
-    bookInfo.setAttribute('style', 'display:none');
-    // remove current book from bookShelf array
-    tempShelf.shift();
-});
+const bookLoader = document.getElementById("load");
+const bookShelf = []; 
 
+function apiHTML(bookShelf) {
+    for (let i = 0; i < bookShelf.length; i++) {
+        const bookDiv = document.createElement('div');
+        bookDiv.innerHTML = `
+        <div class="book ${bookShelf[i].spineCSS}" id="${bookShelf[i].isbn}">
+        <h2>${bookShelf[i].title} - ${bookShelf[i].author}</h2>
+        </div>`;
+        bookStack.prepend(bookDiv);
+    }
+};
 
-addButton.addEventListener('click', (e) => {
-    // create book object with current book info
-    const book = tempShelf[0];
-    setBookStack(book);
-    bookInfo.setAttribute('style', 'display:none');
-    // save bookStack array to db
-    postData('/database.json', book)
-        .then(data => {
-        database.set(data);
-        //console.log(database); // JSON data parsed by `data.json()` call
-    });
-    //clear temp shelf
-    tempShelf.shift();
-});
-
+function getBooks(shelfData) {
+    for (let i = 0; i < shelfData.length; i++) {
+        bookShelf.push(shelfData[i]);
+    }
+    return bookShelf;
+}
