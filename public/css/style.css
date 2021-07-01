@@ -144,6 +144,11 @@ h4 {
   margin:auto;
 }
 
+h5 {
+  font-size: 1.2em;
+  padding-top: 10px;
+  margin:auto;
+}
 
 p {
   font-size: 1em;

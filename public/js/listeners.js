@@ -93,7 +93,6 @@ addButton.addEventListener('click', (e) => {
 // append book divs to bookStack - use with forEach
 // call to set stack = bookShelf.forEach(setBookStack);
 function setBookStack(book){
-
     //add book graphic
     const bookDiv = document.createElement('div');
     const bookStack = document.getElementById("bookStack");
@@ -132,10 +131,18 @@ function apiHTML(bookShelf) {
     for (let i = 0; i < bookShelf.length; i++) {
         const bookDiv = document.createElement('div');
         bookDiv.innerHTML = `
-        <div class="book ${bookShelf[i].spineCSS}" id="${bookShelf[i].isbn}">
+        <div class="book ${bookShelf[i].spineCSS}" id="${i}">
         <h2>${bookShelf[i].title} - ${bookShelf[i].author}</h2>
         </div>`;
         bookStack.prepend(bookDiv);
     }
 };
     
+// click on book div
+// get index from div id
+// search bookShelf for book w correct index
+// populate book Info div
+// include # days on list
+// remove add button, keep close and order buttons
+// allow user to mark as read and update book status - maybe
+// allow user to remove book from pile
