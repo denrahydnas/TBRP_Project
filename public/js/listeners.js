@@ -13,8 +13,7 @@ const addButton = document.getElementById("addBook");
 const errorMsg = document.getElementById("errorMsg");
 // book stack for added books
 const bookStack = document.getElementById("bookStack");
-//book load placeholder button (eventually on load)        
-const bookLoader = document.getElementById("load");
+
 
 
 //holding area for books before they are added to shelf
@@ -24,8 +23,10 @@ const bookShelf = [];
 //api url
 const apiUrl = "http://localhost:8081/bookshelf";
 
-// FIND & ADD BOOKS FROM INPUT FIELDS
 
+//***************************************************** */
+
+// FIND & ADD BOOKS FROM INPUT FIELDS
 findButton.addEventListener('click', (e) => {
     e.preventDefault();
     const title = titleInput.value.replace(/\s/g, "+")
@@ -66,6 +67,7 @@ function setHTML(book) {
     addBookToShelf(book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.description, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.industryIdentifiers[0].identifier)
 };
     
+//***************************************************** */
 
 // CLOSE BOOK WINDOW
 
@@ -97,16 +99,18 @@ function setBookStack(book){
     const bookDiv = document.createElement('div');
     const bookStack = document.getElementById("bookStack");
     bookDiv.innerHTML = `
-        <div class="book ${book.spineCSS}" id="${book.isbn}">
-        <h2>${book.title} - ${book.author}</h2>
+        <div class="book ${book.spineCSS}" id="${(bookShelf.length+1)}">
+        <h2 id="${(bookShelf.length+1)}">${book.title} - ${book.author}</h2>
         </div>`;
     bookStack.prepend(bookDiv);
     bookShelf.push(book);  
 };
 
+//***************************************************** */
 
 // LOAD BOOKS FROM SHELF
 //add books to shelf ON LOAD 
+
 window.addEventListener('load', (e) => {
     e.preventDefault();
 
@@ -132,14 +136,33 @@ function apiHTML(bookShelf) {
         const bookDiv = document.createElement('div');
         bookDiv.innerHTML = `
         <div class="book ${bookShelf[i].spineCSS}" id="${i}">
-        <h2>${bookShelf[i].title} - ${bookShelf[i].author}</h2>
+        <h2 id="${i}" >${bookShelf[i].title} - ${bookShelf[i].author}</h2>
         </div>`;
         bookStack.prepend(bookDiv);
     }
 };
-    
+
+//***************************************************** */
+
+// Show Book Info
+
 // click on book div
-// get index from div id
+// get index from div idß
+bookStack.addEventListener('click', function(e) {
+    alert( e.target.id );
+}, false);
+
+function bookHTML(id) {
+    document.getElementById("title").textContent = bookShelf[id].title;
+    document.getElementById("author").textContent = bookShelf[id].author;
+    document.getElementById("description").textContent = bookShelf[id].description;
+    document.getElementById("cover").setAttribute('src', bookShelf[id].img);
+    document.getElementById("addBook").setAttribute("style", "display:none");
+    document.getElementById("remBook").setAttribute("style", "display:block");
+ //   document.getElementById("buyBook").setAttribute('href', `https://www.amazon.com/s?k=${book.volumeInfo.industryIdentifiers[0].identifier}`);
+    document.getElementById("bookInfo").setAttribute("style", "display:block");  
+};
+
 // search bookShelf for book w correct index
 // populate book Info div
 // include # days on list
