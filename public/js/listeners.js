@@ -1,19 +1,31 @@
-
 //get title input value
 const titleInput = document.getElementById("titleInput");
 //get author input value
 const authorInput = document.getElementById("authorInput");
+// error message div
+const errorMsg = document.getElementById("errorMsg");
+// book stack for added books
+const bookStack = document.getElementById("bookStack");
+
+// Action Buttons ***************************************
 //get book find button
 const findButton = document.getElementById("findButton");
 //get div close button
 const cancelButton = document.getElementById("closeDiv");
 //get add book button
 const addButton = document.getElementById("addBook");
-// error message div
-const errorMsg = document.getElementById("errorMsg");
-// book stack for added books
-const bookStack = document.getElementById("bookStack");
+//get remove book button
+const remButton = document.getElementById('remBook');
+//get order book button
+const buyButton = document.getElementById("buyBook");
 
+// BOOK INFO DIV ELEMENTS
+const bookInfo = document.getElementById("bookInfo");
+const divTitle = document.getElementById("title");
+const divAuth = document.getElementById("author");
+const divDesc = document.getElementById("description");
+const divCover = document.getElementById("cover");
+const divDays = document.getElementById("days");
 
 
 //holding area for books before they are added to shelf
@@ -56,12 +68,12 @@ function addBookToShelf(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn) {
     // carmichaels does not log ebook IBSNs, better results from amazon :-P
 
 function setHTML(book) {
-    document.getElementById("title").textContent = book.volumeInfo.title;
-    document.getElementById("author").textContent = book.volumeInfo.authors[0];
-    document.getElementById("description").textContent = book.volumeInfo.description;
-    document.getElementById("cover").setAttribute('src', book.volumeInfo.imageLinks.thumbnail);
-    document.getElementById("buyBook").setAttribute('href', `https://www.amazon.com/s?k=${book.volumeInfo.industryIdentifiers[0].identifier}`);
-    document.getElementById("bookInfo").setAttribute("style", "display:block");
+    divTitle.textContent = book.volumeInfo.title;
+    divAuth.textContent = book.volumeInfo.authors[0];
+    divDesc.textContent = book.volumeInfo.description;
+    divCover.setAttribute('src', book.volumeInfo.imageLinks.thumbnail);
+    buyButton.setAttribute('href', `https://www.amazon.com/s?k=${book.volumeInfo.industryIdentifiers[0].identifier}`);
+    bookInfo.setAttribute("style", "display:block");
     
         // add book to bookShelf array for future use (title, author, description, img link, isbn 13)
     addBookToShelf(book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.description, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.industryIdentifiers[0].identifier)
@@ -97,10 +109,9 @@ addButton.addEventListener('click', (e) => {
 function setBookStack(book){
     //add book graphic
     const bookDiv = document.createElement('div');
-    const bookStack = document.getElementById("bookStack");
     bookDiv.innerHTML = `
-        <div class="book ${book.spineCSS}" id="${(bookShelf.length+1)}">
-        <h2 id="${(bookShelf.length+1)}">${book.title} - ${book.author}</h2>
+        <div class="book ${book.spineCSS}" id="${(bookShelf.length)}">
+        <h2 id="${(bookShelf.length)}">${book.title} - ${book.author}</h2>
         </div>`;
     bookStack.prepend(bookDiv);
     bookShelf.push(book);  
@@ -153,14 +164,14 @@ bookStack.addEventListener('click', function(e) {
 }, false);
 
 function bookHTML(id) {
-    document.getElementById("title").textContent = bookShelf[id].title;
-    document.getElementById("author").textContent = bookShelf[id].author;
-    document.getElementById("description").textContent = bookShelf[id].description;
-    document.getElementById("cover").setAttribute('src', bookShelf[id].img);
-    document.getElementById("addBook").setAttribute("style", "display:none");
-    document.getElementById("remBook").setAttribute("style", "display:block");
+    divTitle.textContent = bookShelf[id].title;
+    divAuth.textContent = bookShelf[id].author;
+    divDesc.textContent = bookShelf[id].description;
+    divCover.setAttribute('src', bookShelf[id].img);
+    addButton.setAttribute("style", "display:none");
+    remButton.setAttribute("style", "display:block");
  //   document.getElementById("buyBook").setAttribute('href', `https://www.amazon.com/s?k=${book.volumeInfo.industryIdentifiers[0].identifier}`);
-    document.getElementById("bookInfo").setAttribute("style", "display:block");  
+    bookInfo.setAttribute("style", "display:block");  
 };
 
 // search bookShelf for book w correct index
