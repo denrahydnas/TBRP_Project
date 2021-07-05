@@ -160,7 +160,10 @@ function apiHTML(bookShelf) {
 // click on book div
 // get index from div idß
 bookStack.addEventListener('click', function(e) {
-    alert( e.target.id );
+    id = parseInt(e.target.id);
+    bookHTML(id); 
+    //returns index number as string
+    
 }, false);
 
 function bookHTML(id) {
@@ -170,7 +173,7 @@ function bookHTML(id) {
     divCover.setAttribute('src', bookShelf[id].img);
     addButton.setAttribute("style", "display:none");
     remButton.setAttribute("style", "display:block");
- //   document.getElementById("buyBook").setAttribute('href', `https://www.amazon.com/s?k=${book.volumeInfo.industryIdentifiers[0].identifier}`);
+    buyButton.setAttribute("style", "display:none");
     bookInfo.setAttribute("style", "display:block");  
 };
 
