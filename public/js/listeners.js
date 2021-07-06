@@ -1,3 +1,4 @@
+
 //get title input value
 const titleInput = document.getElementById("titleInput");
 //get author input value
@@ -39,11 +40,14 @@ const apiUrl = "http://localhost:8081/bookshelf";
 //***************************************************** */
 
 // FIND & ADD BOOKS FROM INPUT FIELDS
+
 findButton.addEventListener('click', (e) => {
     e.preventDefault();
     const title = titleInput.value.replace(/\s/g, "+")
     const author = authorInput.value.replace(/\s/g, "+")
     const url = gbUrl(title, author);
+
+    // ADD CHECK FOR BOOKS ALREADY IN LIST
 
     getBookInfo(url)
         .then(setHTML)
@@ -73,7 +77,12 @@ function setHTML(book) {
     divDesc.textContent = book.volumeInfo.description;
     divCover.setAttribute('src', book.volumeInfo.imageLinks.thumbnail);
     buyButton.setAttribute('href', `https://www.amazon.com/s?k=${book.volumeInfo.industryIdentifiers[0].identifier}`);
+    buyButton.setAttribute("style", "display:block");
+    addButton.setAttribute("style", "display:block");
+    remButton.setAttribute("style", "display:none");
+    divDays.setAttribute("style", "display:none");
     bookInfo.setAttribute("style", "display:block");
+
     
         // add book to bookShelf array for future use (title, author, description, img link, isbn 13)
     addBookToShelf(book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.description, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.industryIdentifiers[0].identifier)
@@ -158,7 +167,7 @@ function apiHTML(bookShelf) {
 // Show Book Info
 
 // click on book div
-// get index from div idß
+// get index from div id
 bookStack.addEventListener('click', function(e) {
     id = parseInt(e.target.id);
     bookHTML(id); 
@@ -166,20 +175,30 @@ bookStack.addEventListener('click', function(e) {
     
 }, false);
 
+// populate book Info div
+// remove add and buy buttons, keep close button
 function bookHTML(id) {
     divTitle.textContent = bookShelf[id].title;
     divAuth.textContent = bookShelf[id].author;
     divDesc.textContent = bookShelf[id].description;
     divCover.setAttribute('src', bookShelf[id].img);
+    divDays.textContent = daysOnList(id) + " days in TBR Pile";
+    divDays.setAttribute("style", "display:block");
     addButton.setAttribute("style", "display:none");
     remButton.setAttribute("style", "display:block");
     buyButton.setAttribute("style", "display:none");
     bookInfo.setAttribute("style", "display:block");  
+
+};
+// include # days on list
+function daysOnList(id) {
+    const addDate = Date.parse(bookShelf[id].date);
+    const today = Date.now();
+    const millis = today - addDate;
+    const days = Math.ceil(millis / 86400000);
+    return days;
 };
 
-// search bookShelf for book w correct index
-// populate book Info div
-// include # days on list
-// remove add button, keep close and order buttons
-// allow user to mark as read and update book status - maybe
+
+
 // allow user to remove book from pile

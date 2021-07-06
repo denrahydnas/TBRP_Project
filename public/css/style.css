@@ -145,9 +145,11 @@ h4 {
 }
 
 h5 {
-  font-size: 1.2em;
-  padding-top: 10px;
-  margin:auto;
+  font-family: 'Bebas Neue', cursive;
+  color: #A12B4F;
+  font-size: 1.5em;
+  margin: 20px auto;
+
 }
 
 p {
