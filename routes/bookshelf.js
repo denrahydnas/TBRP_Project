@@ -73,12 +73,12 @@ const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') =
   app.delete('/bookshelf/:id', (req, res) => {
 
     readFile(data => {
-      // add the new user
+      // remove selected book
       const bookId = req.params["id"];
       delete data[bookId];
-
+      
       writeFile(JSON.stringify(data, null, 2), () => {
-        res.status(200).send(`bookshelf id:${userId} removed`);
+        res.status(200).send(`book removed from shelf`);
       });
     },
       true);

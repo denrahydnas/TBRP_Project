@@ -153,12 +153,14 @@ function getBooks(shelfData) {
 
 function apiHTML(bookShelf) {
     for (let i = 0; i < bookShelf.length; i++) {
-        const bookDiv = document.createElement('div');
-        bookDiv.innerHTML = `
-        <div class="book ${bookShelf[i].spineCSS}" id="${i}">
-        <h2 id="${i}" >${bookShelf[i].title} - ${bookShelf[i].author}</h2>
-        </div>`;
-        bookStack.prepend(bookDiv);
+        if (bookShelf[i] !== null) {
+            const bookDiv = document.createElement('div');
+            bookDiv.innerHTML = `
+            <div class="book ${bookShelf[i].spineCSS}" id="${i}">
+            <h2 id="${i}" >${bookShelf[i].title} - ${bookShelf[i].author}</h2>
+            </div>`;
+            bookStack.prepend(bookDiv);
+        }
     }
 };
 
@@ -198,16 +200,27 @@ function daysOnList(id) {
     return days;
 };
 
+//***************************************************** */
+
 // DELETE BOOK *********************************
 
 // allow user to remove book from pile
 remButton.addEventListener('click', (e) => {
     //get index/id of book object
-    id = remButton.value
+    id = remButton.value;
     //console.log(id);
     //fetch delete to remove from JSON file
-    remBook(id);
-    //remove book from bookShelf
-    //bookShelf.splice(id, 1);  
-    // refresh bookStack
+    deleteBook(id, apiUrl)
+        // refresh bookStack
+        .then(setupRefresh())
+
+    //close window
+    bookInfo.setAttribute('style', 'display:none');
 });
+
+function setupRefresh() {
+    setTimeout("refreshPage();", 300); // milliseconds 
+  }
+function refreshPage() {
+    window.location = location.href;
+}
