@@ -171,7 +171,6 @@ function apiHTML(bookShelf) {
 bookStack.addEventListener('click', function(e) {
     id = parseInt(e.target.id);
     bookHTML(id); 
-    //returns index number as string
     
 }, false);
 
@@ -186,9 +185,9 @@ function bookHTML(id) {
     divDays.setAttribute("style", "display:block");
     addButton.setAttribute("style", "display:none");
     remButton.setAttribute("style", "display:block");
+    remButton.setAttribute("value", id);
     buyButton.setAttribute("style", "display:none");
     bookInfo.setAttribute("style", "display:block");  
-
 };
 // include # days on list
 function daysOnList(id) {
@@ -199,6 +198,16 @@ function daysOnList(id) {
     return days;
 };
 
-
+// DELETE BOOK *********************************
 
 // allow user to remove book from pile
+remButton.addEventListener('click', (e) => {
+    //get index/id of book object
+    id = remButton.value
+    //console.log(id);
+    //fetch delete to remove from JSON file
+    remBook(id);
+    //remove book from bookShelf
+    //bookShelf.splice(id, 1);  
+    // refresh bookStack
+});

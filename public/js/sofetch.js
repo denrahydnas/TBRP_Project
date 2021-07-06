@@ -58,3 +58,14 @@ function addBook(url, book) {
         .then(res => res.text())
         .then(text => console.log(text))
 }
+
+// delete book from file
+// DELETE request using fetch()
+function remBook(id) {
+    fetch(`http://localhost:8081/bookshelf/${id}`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+    })
+        .then(res => res.text())
+        .then(text => console.log(text))
+}
