@@ -53,7 +53,7 @@ const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') =
   });
 
 
-// UPDATE
+// UPDATE - Mark as Read??
   app.put('/bookshelf/:id', (req, res) => {
 
     readFile(data => {
@@ -70,7 +70,7 @@ const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') =
 
 
 // DELETE
-  app.delete('/bookshelf/:id', (req, res) => {
+ app.delete('/bookshelf/:id', (req, res) => {
 
     readFile(data => {
       // remove selected book
@@ -84,5 +84,6 @@ const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') =
       true);
   });
 };
+
 
 module.exports = bookRoutes;

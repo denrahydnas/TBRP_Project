@@ -66,5 +66,5 @@ function deleteBook(id, url) {
     return fetch(url + '/' + id, {
       method: 'delete'
     })
-    .then(response => response.text());
+    .then(response => response.text())
   }

@@ -8,7 +8,7 @@ const errorMsg = document.getElementById("errorMsg");
 // book stack for added books
 const bookStack = document.getElementById("bookStack");
 
-// Action Buttons ***************************************
+// Action Buttons 
 //get book find button
 const findButton = document.getElementById("findButton");
 //get div close button
@@ -28,7 +28,6 @@ const divDesc = document.getElementById("description");
 const divCover = document.getElementById("cover");
 const divDays = document.getElementById("days");
 
-
 //holding area for books before they are added to shelf
 const tempShelf = [];
 //holding area for received JSON
@@ -40,6 +39,8 @@ const apiUrl = "http://localhost:8081/bookshelf";
 //***************************************************** */
 
 // FIND & ADD BOOKS FROM INPUT FIELDS
+
+//***************************************************** */
 
 findButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -60,37 +61,12 @@ findButton.addEventListener('click', (e) => {
     authorInput.value = "";
 });
 
-// create book object and add to array
-function addBookToShelf(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn) {
-    const newBook = new Book(bookTitle, bookAuthor, bookDescr, bookImg, bookIsbn);
-    tempShelf.unshift(newBook);
-};
-
-// parse for title, author, img, ISBN, and book description
-    // incl link to order book
-    // link to https://www.carmichaelsbookstore.com/book/ISBN or https://www.amazon.com/s?k=ISBN
-    // carmichaels does not log ebook IBSNs, better results from amazon :-P
-
-function setHTML(book) {
-    divTitle.textContent = book.volumeInfo.title;
-    divAuth.textContent = book.volumeInfo.authors[0];
-    divDesc.textContent = book.volumeInfo.description;
-    divCover.setAttribute('src', book.volumeInfo.imageLinks.thumbnail);
-    buyButton.setAttribute('href', `https://www.amazon.com/s?k=${book.volumeInfo.industryIdentifiers[0].identifier}`);
-    buyButton.setAttribute("style", "display:block");
-    addButton.setAttribute("style", "display:block");
-    remButton.setAttribute("style", "display:none");
-    divDays.setAttribute("style", "display:none");
-    bookInfo.setAttribute("style", "display:block");
-
-    
-        // add book to bookShelf array for future use (title, author, description, img link, isbn 13)
-    addBookToShelf(book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.description, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.industryIdentifiers[0].identifier)
-};
     
 //***************************************************** */
 
 // CLOSE BOOK WINDOW
+
+//***************************************************** */
 
 cancelButton.addEventListener('click', (e) => {
     bookInfo.setAttribute('style', 'display:none');
@@ -98,8 +74,11 @@ cancelButton.addEventListener('click', (e) => {
     tempShelf.shift();
 });
 
+//***************************************************** */
 
 // ADD TO BOOKSTACK
+
+//***************************************************** */
 
 addButton.addEventListener('click', (e) => {
     // create book object with current book info
@@ -113,23 +92,11 @@ addButton.addEventListener('click', (e) => {
     tempShelf.shift();
 });
 
-// append book divs to bookStack - use with forEach
-// call to set stack = bookShelf.forEach(setBookStack);
-function setBookStack(book){
-    //add book graphic
-    const bookDiv = document.createElement('div');
-    bookDiv.innerHTML = `
-        <div class="book ${book.spineCSS}" id="${(bookShelf.length)}">
-        <h2 id="${(bookShelf.length)}">${book.title} - ${book.author}</h2>
-        </div>`;
-    bookStack.prepend(bookDiv);
-    bookShelf.push(book);  
-};
-
 //***************************************************** */
 
-// LOAD BOOKS FROM SHELF
-//add books to shelf ON LOAD 
+// LOAD BOOKS FROM SHELF ON PAGE LOAD
+
+//***************************************************** 
 
 window.addEventListener('load', (e) => {
     e.preventDefault();
@@ -142,7 +109,6 @@ window.addEventListener('load', (e) => {
         })
 });
 
-//used in Event Listener ONLOAD with getShelfInfo fetch
 
 function getBooks(shelfData) {
     for (let i = 0; i < shelfData.length; i++) {
@@ -150,6 +116,8 @@ function getBooks(shelfData) {
     }
     return bookShelf;
 };
+
+// ALSO USED IN DELETE EVENT
 
 function apiHTML(bookShelf) {
     for (let i = 0; i < bookShelf.length; i++) {
@@ -164,9 +132,11 @@ function apiHTML(bookShelf) {
     }
 };
 
-//***************************************************** */
+//***************************************************** 
 
-// Show Book Info
+// BOOK SPINE CLICK EVENT
+
+//***************************************************** 
 
 // click on book div
 // get index from div id
@@ -176,51 +146,24 @@ bookStack.addEventListener('click', function(e) {
     
 }, false);
 
-// populate book Info div
-// remove add and buy buttons, keep close button
-function bookHTML(id) {
-    divTitle.textContent = bookShelf[id].title;
-    divAuth.textContent = bookShelf[id].author;
-    divDesc.textContent = bookShelf[id].description;
-    divCover.setAttribute('src', bookShelf[id].img);
-    divDays.textContent = daysOnList(id) + " days in TBR Pile";
-    divDays.setAttribute("style", "display:block");
-    addButton.setAttribute("style", "display:none");
-    remButton.setAttribute("style", "display:block");
-    remButton.setAttribute("value", id);
-    buyButton.setAttribute("style", "display:none");
-    bookInfo.setAttribute("style", "display:block");  
-};
-// include # days on list
-function daysOnList(id) {
-    const addDate = Date.parse(bookShelf[id].date);
-    const today = Date.now();
-    const millis = today - addDate;
-    const days = Math.ceil(millis / 86400000);
-    return days;
-};
 
-//***************************************************** */
+//***************************************************** 
 
-// DELETE BOOK *********************************
+// DELETE BOOK EVENT
+
+//***************************************************** 
 
 // allow user to remove book from pile
 remButton.addEventListener('click', (e) => {
     //get index/id of book object
     id = remButton.value;
-    //console.log(id);
     //fetch delete to remove from JSON file
     deleteBook(id, apiUrl)
-        // refresh bookStack
-        .then(setupRefresh())
-
+    // refresh bookStack
+        .then(bookShelf[id] = null)
+        .then(bookStack.innerHTML = "")
+        .then(apiHTML(bookShelf))
+        
     //close window
     bookInfo.setAttribute('style', 'display:none');
 });
-
-function setupRefresh() {
-    setTimeout("refreshPage();", 300); // milliseconds 
-  }
-function refreshPage() {
-    window.location = location.href;
-}
