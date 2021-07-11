@@ -54,6 +54,18 @@ function spineRandomizer(){
         tempShelf.unshift(newBook);
     };
 
+    // Match to books in pile
+    function findMatch(array, check1, check2) {  
+        for (let i = 0; i < array.length; i++) {
+            if (((bookShelf[i].title).toLowerCase().includes(check1)) && ((array[i].author).toLowerCase().includes(check2))) {
+                return i;
+            } else if (check1.length > 2 && ((array[i].title).toLowerCase().includes(check1)) && (check2.length == 0)) {
+                return i;
+            } else if  (check2.length > 2 && ((array[i].author).toLowerCase().includes(check2)) && (check1.length == 0)){
+                return i;
+            } 
+    }};
+
 // WITH ADD BOOK EVENT
 
     // append book divs to bookStack - use with forEach
@@ -86,6 +98,7 @@ function bookHTML(id) {
     remButton.setAttribute("value", id);
     buyButton.setAttribute("style", "display:none");
     bookInfo.setAttribute("style", "display:block");  
+    bookInfo.scrollIntoView();
 };
 // include # days on list
 function daysOnList(id) {

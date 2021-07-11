@@ -44,21 +44,34 @@ const apiUrl = "http://localhost:8081/bookshelf";
 
 findButton.addEventListener('click', (e) => {
     e.preventDefault();
-    const title = titleInput.value.replace(/\s/g, "+")
-    const author = authorInput.value.replace(/\s/g, "+")
-    const url = gbUrl(title, author);
 
-    // ADD CHECK FOR BOOKS ALREADY IN LIST
+        const checkTitle = (titleInput.value).toLowerCase();
+        const checkAuth = (authorInput.value).toLowerCase();
 
-    getBookInfo(url)
-        .then(setHTML)
-        .catch (e => {
-            errorMsg.setAttribute('style', 'display:block');
-            console.error(e);
-        })
+        const prepTitle = checkTitle.replace(/\s/g, "+")
+        const prepAuthor = checkAuth.replace(/\s/g, "+")
+        const url = gbUrl(prepTitle, prepAuthor);
+    
+        // ADD CHECK FOR BOOKS ALREADY IN LIST
+        const bookIndex = findMatch(bookShelf, checkTitle, checkAuth);
+
+    if (url == undefined) {
+        // gbUrl function will trigger error message div
+        console.log("nope");
+    } else if (bookIndex !== undefined){
+        bookHTML(bookIndex);
+    } else {
+        getBookInfo(url)
+            .then(setHTML)
+            .catch (e => {
+                errorMsg.setAttribute('style', 'display:block');
+                console.error(e);
+            })
+    };
 
     titleInput.value = "";
-    authorInput.value = "";
+    authorInput.value = ""; 
+
 });
 
     

@@ -53,7 +53,7 @@ body {
 
 
 #bookFind {
-    width: 75%;
+    width: 85%;
     padding:1em;
     background: #fcfcfc;
     border-radius: .2em;
@@ -234,7 +234,8 @@ label {
   /* ================================= 
     Media Queries
   ==================================== */
-  
+
+
   @media (min-width: 0) and (max-width: 768px) {
     header {
       height: 400px;
@@ -248,6 +249,10 @@ label {
 
     h3 {
       font-size: 2.2em;
+    }
+
+    #bookFind {
+      width: 90%;
     }
 
     #main {

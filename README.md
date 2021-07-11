@@ -6,7 +6,7 @@ Recently, I noticed that my TBR pile has been growing. Either I'm working on oth
 
 For my Project, I created an app that can retrieve information about books and store them in a To Be Read stack on the page. Existing books are stored in a JSON file and populated automatically when the page loads. 
 
-The user will be able to search for a book and get information about it from the Google Books API, to decide if they would like to read it.
+The user will be able to input a title and/or author in the form fields, which will check to see if the book is already in the pile. If not, it will get book information from the Google Books API. 
 
 The user can add the book to the TBR pile, which will appear as a div in the stack, and/or visit a link to buy the book. 
 
@@ -17,8 +17,6 @@ The user can also remove books from the stack entirely.
 
 To dos: 
  - The user can mark books as Read and filter them out from the TBR pile.
- - Check to see if searched item is in the pile already before getting google books info
-
 
 
 
