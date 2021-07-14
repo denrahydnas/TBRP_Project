@@ -35,7 +35,7 @@ const bookShelf = [];
 //api url - local dev
 const apiUrl = "http://localhost:8081/bookshelf";
 // alt api url for glitch
-// const apiUrl = "https://books-to-be-read.glitch.me"
+// const apiUrl = "https://books-to-be-read.glitch.me/bookshelf"
 
 
 //***************************************************** 
