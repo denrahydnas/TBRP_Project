@@ -36,11 +36,10 @@ const bookShelf = [];
 const apiUrl = "http://localhost:8081/bookshelf";
 
 
-//***************************************************** */
+//***************************************************** 
 
 // FIND & ADD BOOKS FROM INPUT FIELDS
 
-//***************************************************** */
 
 findButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -52,7 +51,7 @@ findButton.addEventListener('click', (e) => {
         const prepAuthor = checkAuth.replace(/\s/g, "+")
         const url = gbUrl(prepTitle, prepAuthor);
     
-        // ADD CHECK FOR BOOKS ALREADY IN LIST
+// CHECK FOR BOOKS ALREADY IN LIST
         const bookIndex = findMatch(bookShelf, checkTitle, checkAuth);
 
     if (url == undefined) {
@@ -75,11 +74,9 @@ findButton.addEventListener('click', (e) => {
 });
 
     
-//***************************************************** */
+//***************************************************** 
 
 // CLOSE BOOK WINDOW
-
-//***************************************************** */
 
 cancelButton.addEventListener('click', (e) => {
     bookInfo.setAttribute('style', 'display:none');
@@ -87,11 +84,9 @@ cancelButton.addEventListener('click', (e) => {
     tempShelf.shift();
 });
 
-//***************************************************** */
+//***************************************************** 
 
 // ADD TO BOOKSTACK
-
-//***************************************************** */
 
 addButton.addEventListener('click', (e) => {
     // create book object with current book info
@@ -108,8 +103,6 @@ addButton.addEventListener('click', (e) => {
 //***************************************************** */
 
 // LOAD BOOKS FROM SHELF ON PAGE LOAD
-
-//***************************************************** 
 
 window.addEventListener('load', (e) => {
     e.preventDefault();
@@ -130,7 +123,7 @@ function getBooks(shelfData) {
     return bookShelf;
 };
 
-// ALSO USED IN DELETE EVENT
+// ALSO USED IN DELETE EVENT  -   ADD FILTER to filter out READ BOOKS
 
 function apiHTML(bookShelf) {
     for (let i = 0; i < bookShelf.length; i++) {
@@ -149,8 +142,6 @@ function apiHTML(bookShelf) {
 
 // BOOK SPINE CLICK EVENT
 
-//***************************************************** 
-
 // click on book div
 // get index from div id
 bookStack.addEventListener('click', function(e) {
@@ -163,8 +154,6 @@ bookStack.addEventListener('click', function(e) {
 //***************************************************** 
 
 // DELETE BOOK EVENT
-
-//***************************************************** 
 
 // allow user to remove book from pile
 remButton.addEventListener('click', (e) => {
@@ -180,3 +169,24 @@ remButton.addEventListener('click', (e) => {
     //close window
     bookInfo.setAttribute('style', 'display:none');
 });
+
+
+
+//***************************************************** 
+
+// UPDATE BOOK  - mark as read, reset date
+
+chngButton.addEventListener('click', (e) => {
+    //get index/id of book object
+    id = remButton.value;
+    bookShelf[id].status = "read";
+    bookShelf[id].date = new Date();
+    // change status to 'read'
+    // reset date to date changed
+    // fetch update to JSON file
+    updateBook(id, apiUrl)
+        
+    //close window
+    bookInfo.setAttribute('style', 'display:none');
+});
+

@@ -1,6 +1,6 @@
 # TBRP_Project
 
-Code Louisville Javascript Spring/Summer 2021
+Code Louisville Javascript Spring/Summer 2021 - now on Glitch at https://books-to-be-read.glitch.me
 
 Recently, I noticed that my TBR pile has been growing. Either I'm working on other projects or have gotten new books to distract me, so quite a few have remained in the pile for some time. This gave me the idea to make a TBR app to track all of my To-Be-Read books and how long I've left them languishing in the stack - hopefully prompting me to start reading them sooner. 
 

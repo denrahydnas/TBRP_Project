@@ -53,11 +53,11 @@ const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') =
   });
 
 
-// UPDATE - Mark as Read??
+// UPDATE - Mark as Read, change date
   app.put('/bookshelf/:id', (req, res) => {
 
     readFile(data => {
-      // add the new book
+      // update the book
       const bookId = req.params["id"];
       data[bookId] = req.body;
 

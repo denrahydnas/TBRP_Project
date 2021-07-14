@@ -100,6 +100,9 @@ function bookHTML(id) {
     bookInfo.setAttribute("style", "display:block");  
     bookInfo.scrollIntoView();
 };
+
+//ADD IF to check for book status "read" - if "read", remove chng button, change div.days to say marked read on _ date
+
 // include # days on list
 function daysOnList(id) {
     const addDate = Date.parse(bookShelf[id].date);

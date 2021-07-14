@@ -68,3 +68,13 @@ function deleteBook(id, url) {
     })
     .then(response => response.text())
   }
+
+// update book in file
+// UPDATE request using fetch()
+
+function updateBook(id, url) {
+    return fetch(url + '/' + id, {
+      method: 'put'
+    })
+    .then(response => response.text())
+  }
