@@ -54,10 +54,12 @@ function spineRandomizer(){
         tempShelf.unshift(newBook);
     };
 
-    // Match to books in pile
+    // Match to books in pile -- problem with NULL in array if items have been deleted
     function findMatch(array, check1, check2) {  
         for (let i = 0; i < array.length; i++) {
-            if (((bookShelf[i].title).toLowerCase().includes(check1)) && ((array[i].author).toLowerCase().includes(check2))) {
+            if (array[i] == null) {
+                console.log("del")
+            } else if (((array[i].title).toLowerCase().includes(check1)) && ((array[i].author).toLowerCase().includes(check2))) {
                 return i;
             } else if (check1.length > 2 && ((array[i].title).toLowerCase().includes(check1)) && (check2.length == 0)) {
                 return i;

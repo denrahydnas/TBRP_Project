@@ -32,8 +32,10 @@ const divDays = document.getElementById("days");
 const tempShelf = [];
 //holding area for received JSON
 const bookShelf = []; 
-//api url
+//api url - local dev
 const apiUrl = "http://localhost:8081/bookshelf";
+// alt api url for glitch
+// const apiUrl = "https://books-to-be-read.glitch.me"
 
 
 //***************************************************** 
@@ -175,7 +177,7 @@ remButton.addEventListener('click', (e) => {
 //***************************************************** 
 
 // UPDATE BOOK  - mark as read, reset date
-
+/*
 chngButton.addEventListener('click', (e) => {
     //get index/id of book object
     id = remButton.value;
@@ -188,5 +190,5 @@ chngButton.addEventListener('click', (e) => {
         
     //close window
     bookInfo.setAttribute('style', 'display:none');
-});
+});*/
 
