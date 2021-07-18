@@ -74,7 +74,10 @@ function deleteBook(id, url) {
 
 function updateBook(id, url) {
     return fetch(url + '/' + id, {
-      method: 'put'
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify(bookShelf[id])
     })
     .then(response => response.text())
   }

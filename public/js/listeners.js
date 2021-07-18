@@ -8,7 +8,6 @@ const errorMsg = document.getElementById("errorMsg");
 // book stack for added books
 const bookStack = document.getElementById("bookStack");
 
-// Action Buttons 
 //get book find button
 const findButton = document.getElementById("findButton");
 //get div close button
@@ -19,6 +18,8 @@ const addButton = document.getElementById("addBook");
 const remButton = document.getElementById('remBook');
 //get order book button
 const buyButton = document.getElementById("buyBook");
+// get change button (to mark book as read)
+const chngButton = document.getElementById("chngBook");
 
 // BOOK INFO DIV ELEMENTS
 const bookInfo = document.getElementById("bookInfo");
@@ -41,7 +42,6 @@ const apiUrl = "http://localhost:8081/bookshelf";
 //***************************************************** 
 
 // FIND & ADD BOOKS FROM INPUT FIELDS
-
 
 findButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -177,18 +177,18 @@ remButton.addEventListener('click', (e) => {
 //***************************************************** 
 
 // UPDATE BOOK  - mark as read, reset date
-/*
+
 chngButton.addEventListener('click', (e) => {
     //get index/id of book object
     id = remButton.value;
+        // change status to 'read'
     bookShelf[id].status = "read";
+        // reset date to date changed
     bookShelf[id].date = new Date();
-    // change status to 'read'
-    // reset date to date changed
     // fetch update to JSON file
-    updateBook(id, apiUrl)
+    updateBook(id, apiUrl);
         
     //close window
     bookInfo.setAttribute('style', 'display:none');
-});*/
+});
 

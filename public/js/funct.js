@@ -26,7 +26,6 @@ function spineRandomizer(){
 };
 
 // WITH FIND EVENT
-
 // parse for title, author, img, ISBN, and book description
     // incl link to order book
     // link to https://www.carmichaelsbookstore.com/book/ISBN or https://www.amazon.com/s?k=ISBN
@@ -41,10 +40,11 @@ function spineRandomizer(){
         buyButton.setAttribute("style", "display:block");
         addButton.setAttribute("style", "display:block");
         remButton.setAttribute("style", "display:none");
+        chngButton.setAttribute("style", "display:none");
         divDays.setAttribute("style", "display:none");
         bookInfo.setAttribute("style", "display:block");
     
-            // add book to bookShelf array for future use (title, author, description, img link, isbn 13)
+        // add book to bookShelf array for future use (title, author, description, img link, isbn 13)
         addBookToShelf(book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.description, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.industryIdentifiers[0].identifier)
     };
     
@@ -54,7 +54,7 @@ function spineRandomizer(){
         tempShelf.unshift(newBook);
     };
 
-    // Match to books in pile -- problem with NULL in array if items have been deleted
+    // Match to books in pile
     function findMatch(array, check1, check2) {  
         for (let i = 0; i < array.length; i++) {
             if (array[i] == null) {
@@ -72,15 +72,15 @@ function spineRandomizer(){
 
     // append book divs to bookStack - use with forEach
     // call to set stack = bookShelf.forEach(setBookStack);
-    function setBookStack(book){
+function setBookStack(book){
         //add book graphic
-        const bookDiv = document.createElement('div');
-        bookDiv.innerHTML = `
-            <div class="book ${book.spineCSS}" id="${(bookShelf.length)}">
-            <h2 id="${(bookShelf.length)}">${book.title} - ${book.author}</h2>
-            </div>`;
-        bookStack.prepend(bookDiv);
-        bookShelf.push(book);  
+    const bookDiv = document.createElement('div');
+    bookDiv.innerHTML = `
+        <div class="book ${book.spineCSS}" id="${(bookShelf.length)}">
+        <h2 id="${(bookShelf.length)}">${book.title} - ${book.author}</h2>
+        </div>`;
+    bookStack.prepend(bookDiv);
+    bookShelf.push(book);  
     };   
 
 
@@ -93,12 +93,22 @@ function bookHTML(id) {
     divAuth.textContent = bookShelf[id].author;
     divDesc.textContent = bookShelf[id].description;
     divCover.setAttribute('src', bookShelf[id].img);
-    divDays.textContent = daysOnList(id) + " days in TBR Pile";
-    divDays.setAttribute("style", "display:block");
     addButton.setAttribute("style", "display:none");
     remButton.setAttribute("style", "display:block");
     remButton.setAttribute("value", id);
     buyButton.setAttribute("style", "display:none");
+    console.log(bookShelf[id].status);
+    // check book status
+    if (bookShelf[id].status == "unread") {    
+        divDays.textContent = daysOnList(id) + " days in TBR Pile";
+        divDays.setAttribute("style", "display:block");
+        chngButton.setAttribute("style", "display:block");
+    } else if (bookShelf[id].status == "read") {
+        divDays.textContent = "Marked as READ on " + formatDate(id);
+        divDays.setAttribute("style", "display:block");
+        chngButton.setAttribute("style", "display:none");
+    }
+    // show book info
     bookInfo.setAttribute("style", "display:block");  
     bookInfo.scrollIntoView();
 };
@@ -113,4 +123,12 @@ function daysOnList(id) {
     const days = Math.ceil(millis / 86400000);
     return days;
 };
+
+function formatDate(id) {
+    const date = 
+        new Date(bookShelf[id].date);
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formDate = date.toLocaleDateString("en-us", options);
+    return formDate;
+}
 
