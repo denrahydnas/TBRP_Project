@@ -69,23 +69,43 @@ function spineRandomizer(){
     }};
 
 // WITH ADD BOOK EVENT
+    // append book divs to bookStack
 
-    // append book divs to bookStack - use with forEach
-    // call to set stack = bookShelf.forEach(setBookStack);
 function setBookStack(book){
-        //add book graphic
+    bookShelf.push(book);  
+        //add book spine div
+    const id = bookShelf.length - 1;
+    makeBook(id);
+};
+
+function makeBook(i){
     const bookDiv = document.createElement('div');
     bookDiv.innerHTML = `
-        <div class="book ${book.spineCSS}" id="${(bookShelf.length)}">
-        <h2 id="${(bookShelf.length)}">${book.title} - ${book.author}</h2>
+        <div class="book ${bookShelf[i].spineCSS}" id="${i}">
+        <h2 id="${i}" >${bookShelf[i].title} - ${bookShelf[i].author}</h2>
         </div>`;
     bookStack.prepend(bookDiv);
-    bookShelf.push(book);  
-    };   
+}
+
+//used in window ONLOAD for bookStack
+function getBooks(shelfData) {
+    for (let i = 0; i < shelfData.length; i++) {
+        bookShelf.push(shelfData[i]);
+    }
+    return bookShelf;
+};
+
+// ALSO USED IN DELETE and FILTER events
+function apiHTML(bookShelf) {
+    for (let i = 0; i < bookShelf.length; i++) {
+        if (bookShelf[i] !== null) {
+            makeBook(i);
+        }
+    }
+};
 
 
 // SHOW BOOK INFO FROM BOOKS IN PILE
-
 // populate book Info div
 // remove add and buy buttons, keep close button
 function bookHTML(id) {
@@ -97,7 +117,7 @@ function bookHTML(id) {
     remButton.setAttribute("style", "display:block");
     remButton.setAttribute("value", id);
     buyButton.setAttribute("style", "display:none");
-    console.log(bookShelf[id].status);
+    //console.log(bookShelf[id].status);
     // check book status
     if (bookShelf[id].status == "unread") {    
         divDays.textContent = daysOnList(id) + " days in TBR Pile";
@@ -113,7 +133,6 @@ function bookHTML(id) {
     bookInfo.scrollIntoView();
 };
 
-//ADD IF to check for book status "read" - if "read", remove chng button, change div.days to say marked read on _ date
 
 // include # days on list
 function daysOnList(id) {
@@ -132,3 +151,17 @@ function formatDate(id) {
     return formDate;
 }
 
+//Filter Books from stack
+// refresh bookstack with filtered books
+
+function statusFilter(filter) {
+    bookStack.innerHTML = "";
+    if (filter == "all") {
+        apiHTML(bookShelf);
+    } else {
+        for (let i = 0; i < bookShelf.length; i++) {
+            if ((bookShelf[i] !== null) && (bookShelf[i].status == filter)) {
+                makeBook(i);
+        }}
+    }
+};

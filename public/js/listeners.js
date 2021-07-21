@@ -29,6 +29,11 @@ const divDesc = document.getElementById("description");
 const divCover = document.getElementById("cover");
 const divDays = document.getElementById("days");
 
+//book filters
+const filtUnread = document.getElementById("unread");
+const filtRead = document.getElementById("read");
+const filtAll = document.getElementById("all");
+
 //holding area for books before they are added to shelf
 const tempShelf = [];
 //holding area for received JSON
@@ -118,28 +123,6 @@ window.addEventListener('load', (e) => {
 });
 
 
-function getBooks(shelfData) {
-    for (let i = 0; i < shelfData.length; i++) {
-        bookShelf.push(shelfData[i]);
-    }
-    return bookShelf;
-};
-
-// ALSO USED IN DELETE EVENT  -   ADD FILTER to filter out READ BOOKS
-
-function apiHTML(bookShelf) {
-    for (let i = 0; i < bookShelf.length; i++) {
-        if (bookShelf[i] !== null) {
-            const bookDiv = document.createElement('div');
-            bookDiv.innerHTML = `
-            <div class="book ${bookShelf[i].spineCSS}" id="${i}">
-            <h2 id="${i}" >${bookShelf[i].title} - ${bookShelf[i].author}</h2>
-            </div>`;
-            bookStack.prepend(bookDiv);
-        }
-    }
-};
-
 //***************************************************** 
 
 // BOOK SPINE CLICK EVENT
@@ -149,9 +132,7 @@ function apiHTML(bookShelf) {
 bookStack.addEventListener('click', function(e) {
     id = parseInt(e.target.id);
     bookHTML(id); 
-    
 }, false);
-
 
 //***************************************************** 
 
@@ -172,8 +153,6 @@ remButton.addEventListener('click', (e) => {
     bookInfo.setAttribute('style', 'display:none');
 });
 
-
-
 //***************************************************** 
 
 // UPDATE BOOK  - mark as read, reset date
@@ -190,5 +169,33 @@ chngButton.addEventListener('click', (e) => {
         
     //close window
     bookInfo.setAttribute('style', 'display:none');
+});
+
+//***************************************************** 
+
+// Filter Book lists
+// click to filter for unread, read or all books
+filtUnread.addEventListener('click', (e) => {
+    filtAll.classList.remove("active");
+    filtRead.classList.remove("active");
+    filtUnread.classList.add("active");
+    const filter ="unread";
+    statusFilter(filter);
+});
+
+filtRead.addEventListener('click', (e) => {
+    filtAll.classList.remove("active");
+    filtRead.classList.add("active");
+    filtUnread.classList.remove("active");
+    const filter ="read";
+    statusFilter(filter);
+});
+
+filtAll.addEventListener('click', (e) => {
+    filtAll.classList.add("active");
+    filtRead.classList.remove("active");
+    filtUnread.classList.remove("active");
+    const filter ="all";
+    statusFilter(filter);
 });
 

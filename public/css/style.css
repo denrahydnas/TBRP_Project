@@ -166,7 +166,24 @@ label {
   font-size: 0.7em;
 }
 
+ /* ================================= 
+    Filter Styling
+  ==================================== */
 
+.filter {
+  margin: 5px;
+  color:#382C8F;
+  background: none;
+}
+
+.filter:hover{
+  background: none;
+}
+
+.dropdown-item.active {
+  background:#382C8F;
+  color:#fcf7e9;
+}
 
  /* ================================= 
     Book Stack Styling
@@ -174,7 +191,8 @@ label {
 
 #bookStack {
   padding: 2em;
-  margin-top:5px;
+  margin-top:35px;
+  width: 100%;
 }
 
 .book { 

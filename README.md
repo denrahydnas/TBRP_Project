@@ -10,7 +10,7 @@ The user will be able to input a title and/or author in the form fields, which w
 
 The user can add the book to the TBR pile, which will appear as a div in the stack, and/or visit a link to buy the book. 
 
-The user can click on a book in the stack and view the book information, including how long it has been since the book was added to the TBR pile. The User can mark books as "read", which will then display the date that they were updated on.
+The user can click on a book in the stack and view the book information, including how long it has been since the book was added to the TBR pile. The User can mark books as "read", which will then display the date that they were updated on. They can use the filter button to filter books by their "read" status. 
 
 The user can also remove books from the stack entirely. 
 
